@@ -6,10 +6,17 @@
   font-family: "Open Sans", sans-serif;
 }
 
+$red: #ff0002;
+$blue: #011cfb;
+$bg: linear-gradient(180deg, rgba(254, 249, 228, 0) 0%, #d6bb40 100%);
+$navbg: linear-gradient(-270deg, #d6bb40 0%, #c68401 100%);
+$yellow: #c68401;
+$transition: all 0.3s ease-in-out;
+$border: #d9d9d9;
+
 a {
   color: #000;
 }
-
 a:hover,
 a:focus {
   text-decoration: none;
@@ -23,9 +30,10 @@ h5 {
   color: #000;
 }
 
+// <----- basic css starts ----->
 .width {
   width: 250px;
-  border-right: 1px solid #d9d9d9;
+  border-right: 1px solid $border;
 }
 
 .max-width {
@@ -50,28 +58,25 @@ h5 {
 
 .active,
 .list:hover {
-  color: #c68401 !important;
-  border-left: 3px solid #c68401;
+  color: $yellow !important;
+  border-left: 3px solid $yellow;
   background: rgba(214, 187, 64, 0.2);
 }
 
 .uk-button {
   font-size: 12px;
-  border: 1px solid #c68401;
+  border: 1px solid $yellow;
   border-radius: 3px;
-  width: -webkit-max-content;
-  width: -moz-max-content;
   width: max-content;
   line-height: 20px;
   padding: 5px 10px;
   background: transparent;
-  color: #c68401;
+  color: $yellow;
   text-transform: capitalize;
   transition: all 0.3s ease-in-out;
 }
-
 .uk-button:hover {
-  background: #c68401;
+  background: $yellow;
   color: #fff;
 }
 
@@ -84,15 +89,18 @@ h5 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.loading img {
-  width: 90px;
-}
-.loading span {
-  font-size: 12px;
-  margin-top: -1rem;
+  img {
+    width: 90px;
+  }
+  span {
+    font-size: 12px;
+    margin-top: -1rem;
+  }
 }
 
+// <----- basic css ends ----->
+
+// <----- ham menu css starts ----->
 .menu2 {
   border-radius: 5px;
 }
@@ -100,7 +108,7 @@ h5 {
 .menu2:hover .bar-1,
 .menu2:hover .bar-2,
 .menu2:hover .bar-3 {
-  background: #ff0002;
+  background: $red;
 }
 
 .menu2 div {
@@ -150,7 +158,9 @@ h5 {
   transform: translate(-100%, -50%) rotate(-45deg);
   width: 50%;
 }
+// <----- ham menu css ends ----->
 
+// <----- sidebar css starts ----->
 aside {
   width: 60px;
   height: 100vh;
@@ -161,56 +171,48 @@ aside {
   background: #fff;
   position: fixed;
 }
-
 aside h3 {
   text-align: center;
   margin: 0.5rem 0;
 }
-
 aside i {
   margin-left: 0.8rem;
   margin-right: 1rem;
 }
-
 aside .logo {
   transition: all 0.3s ease-in-out;
-  color: #ff0002;
+  color: $red;
   font-weight: bold;
   font-size: 17px;
   margin-left: 1rem;
   display: none;
 }
+aside {
+  .mob-close-icon {
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
 
-aside .mob-close-icon {
-  position: absolute;
-  right: 5px;
-  cursor: pointer;
+    svg > path[stroke] {
+      stroke: $red;
+    }
+  }
 }
-aside .mob-close-icon svg > path[stroke] {
-  stroke: #ff0002;
-}
-
 aside .brand {
   display: flex;
-  width: -webkit-max-content;
-  width: -moz-max-content;
   width: max-content;
   align-items: center;
   margin-left: 0.6rem;
 }
-
 aside .brand img {
   width: 40px;
 }
-
 aside li {
-  border-bottom: 1px solid #d9d9d9;
+  border-bottom: 1px solid $border;
 }
-
 aside li:first-child {
-  border-top: 1px solid #d9d9d9;
+  border-top: 1px solid $border;
 }
-
 aside .uk-list .list {
   display: flex;
   width: 100%;
@@ -219,25 +221,20 @@ aside .uk-list .list {
   padding: 0.5rem 0.5rem;
   font-size: 14px;
 }
-
 aside .uk-list .list:hover {
   text-decoration: none;
 }
-
 aside .uk-list .list .list-name {
   transition: all 0.3s ease-in-out;
   display: none;
 }
-
 aside .uk-list .list .dropicon {
   position: absolute;
   right: 0;
 }
-
 aside .uk-list .list .dropicon i {
   transition: all 0.3s ease-in-out;
 }
-
 aside .uk-list .list h3 {
   margin-left: 1.3rem;
 }
@@ -267,17 +264,17 @@ aside::-webkit-scrollbar-thumb {
 
 .uk-accordion-content {
   background: rgba(214, 187, 64, 0.05);
-}
-.uk-accordion-content .uk-dropdown-nav {
-  margin-left: 2rem !important;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-.uk-accordion-content .uk-dropdown-nav > li > a {
-  transition: all 0.3s ease-in-out;
-}
-.uk-accordion-content .uk-dropdown-nav > li > a:hover {
-  transform: translateX(5px);
+  .uk-dropdown-nav {
+    margin-left: 2rem !important;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .uk-dropdown-nav > li > a {
+    transition: $transition;
+    &:hover {
+      transform: translateX(5px);
+    }
+  }
 }
 
 .uk-accordion-title::before {
@@ -291,7 +288,7 @@ aside::-webkit-scrollbar-thumb {
 }
 
 .uk-open > .uk-accordion-title > .list-name {
-  color: #c68401;
+  color: $yellow;
 }
 
 .uk-open > .uk-accordion-title > .dropicon > i {
@@ -299,31 +296,30 @@ aside::-webkit-scrollbar-thumb {
 }
 
 .uk-list > * > ul,
-.uk-list > :nth-child(n+2),
-.uk-list > li:nth-child(n+2),
+.uk-list > :nth-child(n + 2),
+.uk-list > li:nth-child(n + 2),
 .uk-list > li > ul {
   margin-top: 0;
 }
+// <----- sidebar css ends ----->
 
+// <----- nav css starts ----->
 article .nav {
-  border-bottom: 1px solid #d9d9d9;
+  border-bottom: 1px solid $border;
   padding: 1rem;
   position: fixed;
   width: calc(100% - 60px);
-  background: linear-gradient(-270deg, #d6bb40 0%, #c68401 100%);
+  background: $navbg;
   z-index: 1;
   transition: all 0.3s ease-in-out;
 }
-
 article .nav .ham,
 article .nav .mob-ham {
   cursor: pointer;
 }
-
 article .nav i {
   margin: 0 0.5rem;
 }
-
 .show-logo {
   transition: all 0.3s ease-in-out;
   color: #fff;
@@ -336,18 +332,17 @@ article .nav i {
 .user {
   cursor: pointer;
 }
-
 .logOut {
   padding: 0.7rem 1rem;
   max-width: none !important;
   min-width: 0 !important;
-  width: -webkit-max-content !important;
-  width: -moz-max-content !important;
   width: max-content !important;
   cursor: pointer;
-  border: 1px solid #d9d9d9;
+  border: 1px solid $border;
 }
+// <----- nav css ends ----->
 
+// <----- main content css starts ----->
 article {
   width: 100%;
   padding-left: 60px;
@@ -363,7 +358,6 @@ article .title {
   padding-top: 1rem;
   padding-right: 3rem;
 }
-
 article .title h4 {
   font-weight: bold;
   margin: 0;
@@ -372,26 +366,27 @@ article .title h4 {
 .wrapper {
   margin: 4.5rem 1rem 1rem 1rem;
   background: #fff;
-  box-shadow: 0 0px 15px -9px rgba(0, 0, 0, 0.56), 0 4px 0px 0px rgba(0, 0, 0, 0), 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0px 15px -9px rgba(0, 0, 0, 0.56),
+    0 4px 0px 0px rgba(0, 0, 0, 0), 0 2px 3px 0 rgba(0, 0, 0, 0.2);
   min-height: calc(100vh - 5.5rem);
   padding-bottom: 0.1rem;
 }
-
 .wrapper .content_wrapper {
   margin: 1rem 3rem;
   margin-bottom: 1rem;
   position: relative;
-  border: 1px solid #d9d9d9;
+  border: 1px solid $border;
   padding: 1rem;
 }
-
 .wrapper .content_wrapper #export-dext {
   display: block;
   position: absolute;
   right: 320px;
   top: 45px;
 }
+// <----- main content css ends ----->
 
+// <----- table css starts ----->
 .sc-dmctIk {
   max-height: 360px !important;
 }
@@ -402,14 +397,16 @@ article .title h4 {
   margin-top: 0.5rem;
 }
 
-.export-button .export-icon {
-  cursor: pointer;
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
-}
-.export-button button {
-  border: none;
-  cursor: pointer;
+.export-button {
+  .export-icon {
+    cursor: pointer;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+  }
+  button {
+    border: none;
+    cursor: pointer;
+  }
 }
 
 .sc-dmctIk::-webkit-scrollbar {
@@ -417,7 +414,6 @@ article .title h4 {
   width: 0.5rem;
   display: none;
 }
-
 .sc-dmctIk:hover::-webkit-scrollbar {
   display: block;
 }
@@ -438,33 +434,35 @@ article .title h4 {
 
 .rdt_TableCol {
   padding: 10px;
-  border-left: 1px solid #d9d9d9;
+  border-left: 1px solid $border;
   font-size: 12px;
-  border-top: 1px solid #d9d9d9;
+  border-top: 1px solid $border;
   color: #000;
   background: #ececec;
   justify-content: flex-start !important;
 }
 
 .rdt_TableCell {
-  border-left: 1px solid #d9d9d9;
+  border-left: 1px solid $border;
   justify-content: flex-start !important;
 }
-
 .rdt_TableCell:first-child {
   justify-content: center !important;
 }
-
 .rdt_TableCol:first-child {
   justify-content: center !important;
 }
 
+// .rdt_TableRow:hover {
+//   border-bottom-color: $border !important;
+//   outline-color: $border !important;
+//   justify-content: flex-start !important;
+// }
 .rdt_TableCol:last-child {
-  border-right: 1px solid #d9d9d9;
+  border-right: 1px solid $border;
 }
-
 .rdt_TableCell:last-child {
-  border-right: 1px solid #d9d9d9;
+  border-right: 1px solid $border;
 }
 
 .kDEcCH,
@@ -475,32 +473,34 @@ article .title h4 {
 }
 
 .filter-option select {
-  border: 1px solid #d9d9d9;
+  border: 1px solid $border;
   padding-top: 5px;
   padding-bottom: 5px;
   margin-right: 1rem;
   margin-top: 0.5rem;
 }
-
 .filter-option {
   position: relative;
-}
-.filter-option .uk-input {
-  padding-right: 1.5rem;
-}
-.filter-option .clear {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 0;
-}
-.filter-option .clear svg > path[stroke] {
-  stroke: #555;
-  transition: all 0.3s ease-in-out;
-}
-.filter-option .clear:hover svg > path[stroke] {
-  stroke: #ff0002;
+
+  .uk-input {
+    padding-right: 1.5rem;
+  }
+  .clear {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+
+    svg > path[stroke] {
+      stroke: #555;
+      transition: $transition;
+    }
+
+    &:hover svg > path[stroke] {
+      stroke: $red;
+    }
+  }
 }
 
 :focus-visible {
@@ -514,33 +514,36 @@ article .title h4 {
 .fa-eye {
   color: #22333f;
 }
-
 .fa-trash-alt {
-  color: #ff0002;
+  color: $red;
 }
 
-.uk-table td {
-  padding: 0.5rem;
+.uk-table {
+  td {
+    padding: 0.5rem;
+  }
 }
+// <----- table css ends ----->
 
-form .form-wrapper {
-  margin-bottom: 1rem;
-}
-form .form-wrapper label {
-  font-size: 14px;
-  color: #000;
-}
+// <----- form css starts ----->
+form {
+  .form-wrapper {
+    margin-bottom: 1rem;
 
+    label {
+      font-size: 14px;
+      color: #000;
+    }
+  }
+}
 .sup-col {
-  color: #ff0002;
+  color: $red;
 }
-
 .uk-input:focus,
 .uk-select:focus,
 .uk-textarea:focus {
-  border-color: #c68401;
+  border-color: $yellow;
 }
-
 .uk-input {
   height: 30px;
   border-radius: 3px;
@@ -549,10 +552,13 @@ form .form-wrapper label {
 }
 
 .errormsg {
-  color: #ff0002;
+  color: $red;
   margin: 0;
   font-size: 12px;
 }
+// <----- form css ends ----->
+
+// <----- popup css starts ----->
 
 .popup-bg {
   width: 100vw;
@@ -564,81 +570,92 @@ form .form-wrapper label {
   z-index: 20000;
   background: rgba(0, 0, 0, 0.75);
   display: none;
-}
-.popup-bg .popup {
-  display: none;
-  width: 40%;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: auto;
-  z-index: 1000;
-  background: #fff;
-  box-shadow: 0 0px 15px -9px rgba(0, 0, 0, 0.56), 0 4px 0px 0px rgba(0, 0, 0, 0), 0 2px 3px 0 rgba(0, 0, 0, 0.2);
-}
-.popup-bg .popup .popup-head {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: linear-gradient(-270deg, #d6bb40 0%, #c68401 100%);
-  width: 100%;
-  position: relative;
-}
-.popup-bg .popup .popup-head h4 {
-  margin: 0;
-  padding: 0.5rem 1rem;
-  color: #fff;
-}
-.popup-bg .popup .popup-head .close {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 5px;
-  cursor: pointer;
-  z-index: 100;
-  transition: all 0.3s ease-in-out;
-  width: 30px;
-  height: 30px;
-  border: 3px solid #fff;
-  background: transparent;
-}
-.popup-bg .popup .popup-head .close svg > path[stroke] {
-  stroke: #fff;
-  transition: all 0.3s ease-in-out;
-}
-.popup-bg .popup .popup-head .close:hover {
-  background: #fff;
-}
-.popup-bg .popup .popup-head .close:hover svg > path[stroke] {
-  stroke: #ff0002;
-}
-.popup-bg .popup .popup-body {
-  padding: 1rem;
-  padding-bottom: 9rem;
-}
-.popup-bg .popup .popup-footer {
-  position: fixed;
-  bottom: 5px;
-  right: 0;
-  width: 100%;
-  border-top: 1px solid #d9d9d9;
-  padding-top: 0.5rem;
-  display: flex;
-  justify-content: end;
-  padding-right: 0.5rem;
-  background: #fff;
-}
-.popup-bg .popup .popup-footer .cancel-btn {
-  background: transparent;
-  border: 1px solid #ff0002;
-  color: #ff0002;
-  transition: all 0.3s ease-in-out;
-  margin-left: 0.5rem;
-}
-.popup-bg .popup .popup-footer .cancel-btn:hover {
-  background: #ff0002;
-  color: #fff;
+
+  .popup {
+    display: none;
+    width: 40%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    // min-height: 50vh;
+    z-index: 1000;
+    background: #fff;
+    box-shadow: 0 0px 15px -9px rgba(0, 0, 0, 0.56),
+      0 4px 0px 0px rgba(0, 0, 0, 0), 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+
+    .popup-head {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: $navbg;
+      width: 100%;
+      position: relative;
+
+      h4 {
+        margin: 0;
+        padding: 0.5rem 1rem;
+        color: #fff;
+      }
+
+      .close {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 5px;
+        cursor: pointer;
+        z-index: 100;
+        transition: $transition;
+        width: 30px;
+        height: 30px;
+        border: 3px solid #fff;
+        background: transparent;
+
+        svg > path[stroke] {
+          stroke: #fff;
+          transition: $transition;
+        }
+
+        &:hover {
+          background: #fff;
+        }
+        &:hover svg > path[stroke] {
+          stroke: $red;
+        }
+      }
+    }
+
+    .popup-body {
+      padding: 1rem;
+      padding-bottom: 9rem;
+    }
+
+    .popup-footer {
+      position: fixed;
+      bottom: 5px;
+      right: 0;
+      width: 100%;
+      border-top: 1px solid $border;
+      padding-top: 0.5rem;
+      display: flex;
+      justify-content: end;
+      padding-right: 0.5rem;
+      background: #fff;
+      .cancel-btn {
+        background: transparent;
+        border: 1px solid $red;
+        color: $red;
+        transition: $transition;
+        margin-left: 0.5rem;
+
+        &:hover {
+          background: $red;
+          color: #fff;
+        }
+      }
+    }
+  }
 }
 
 .delete-user {
@@ -650,38 +667,16 @@ form .form-wrapper label {
   z-index: 100000;
 }
 
-@media (max-width: 960px) {
-  .popup-bg .popup {
-    width: 60%;
-  }
-  .delete-user {
-    width: 60% !important;
-  }
-}
-@media (max-width: 676px) {
-  .popup-bg .popup {
-    width: 90%;
-  }
-  .delete-user {
-    width: 90% !important;
-  }
-}
-@media (max-width: 639.9px) {
-  aside {
-    width: 0;
-  }
-  article {
-    width: calc(100% - 0px);
-    padding-left: 0;
-  }
-  article .nav {
-    width: calc(100% - 0px);
-  }
-  article .title {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  .wrapper .content_wrapper {
-    margin: 1rem;
-  }
-}/*# sourceMappingURL=App.css.map */
+// .add-user,
+// .add-user-bg,
+// .edit-user-bg,
+// .edit-user,
+// .view-user-bg,
+// .view-user,
+// .delete-user-bg,
+// .delete-user {
+//   display: none;
+// }
+// <----- popup css ends ----->
+
+@import "responsive";

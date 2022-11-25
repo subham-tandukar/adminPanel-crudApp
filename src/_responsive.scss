@@ -1,0 +1,41 @@
+@media (max-width: 960px) {
+  .popup-bg {
+    .popup {
+      width: 60%;
+    }
+  }
+  .delete-user {
+    width: 60% !important;
+  }
+}
+
+@media (max-width: 676px) {
+  .popup-bg {
+    .popup {
+      width: 90%;
+    }
+  }
+  .delete-user {
+    width: 90% !important;
+  }
+}
+
+@media (max-width: 639.9px) {
+  aside {
+    width: 0;
+  }
+  article {
+    width: calc(100% - 0px);
+    padding-left: 0;
+  }
+  article .nav {
+    width: calc(100% - 0px);
+  }
+  article .title {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .wrapper .content_wrapper {
+    margin: 1rem;
+  }
+}
