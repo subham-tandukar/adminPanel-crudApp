@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "../../../node_modules/react-toastify/dist/ReactToastify.css";
 
 function UserState(props) {
+  const base_url = "https://adminpanel-crudapp.herokuapp.com";
   const initialValue = {
     name: "",
     email: "",
@@ -48,21 +49,18 @@ function UserState(props) {
   const addUser = async () => {
     const { name, email, number, address } = inputData;
 
-    const response = await fetch(
-      "https://adminpanel-crudapp.herokuapp.com/addUser",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          number,
-          address,
-        }),
-      }
-    );
+    const response = await fetch(`${base_url}/addUser`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        number,
+        address,
+      }),
+    });
     const data = await response.json();
     console.log("addUser", data);
 
@@ -86,15 +84,12 @@ function UserState(props) {
   }, [reload]);
 
   const getUserData = async (e) => {
-    const response = await fetch(
-      "https://adminpanel-crudapp.herokuapp.com/getData",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${base_url}/getData`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const data = await response.json();
     console.log("data", data);
 
@@ -120,15 +115,12 @@ function UserState(props) {
   const id = viewID;
 
   const viewData = async () => {
-    const response = await fetch(
-      `https://adminpanel-crudapp.herokuapp.com/getUser/${id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${base_url}/getUser/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const data = await response.json();
     console.log("datsassaa", data);
 
@@ -167,21 +159,18 @@ function UserState(props) {
   const editUser = async () => {
     const { name, email, number, address } = inputData;
 
-    const response = await fetch(
-      `https://adminpanel-crudapp.herokuapp.com/updateUser/${editid}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          number,
-          address,
-        }),
-      }
-    );
+    const response = await fetch(`${base_url}/updateUser/${editid}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        number,
+        address,
+      }),
+    });
     const data = await response.json();
     console.log("editData", data);
 
@@ -213,15 +202,12 @@ function UserState(props) {
   const deleteid = deleteID;
 
   const deleteUser = async () => {
-    const response = await fetch(
-      `https://adminpanel-crudapp.herokuapp.com/deleteUser/${deleteid}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${base_url}/deleteUser/${deleteid}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const data = await response.json();
     console.log("deleteData", data);
 
