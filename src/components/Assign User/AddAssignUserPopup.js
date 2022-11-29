@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import $ from "jquery";
 import { GrFormClose } from "react-icons/gr";
-import UserContext from "./context/userContext";
+import AssignUserContext from "../context/assign user context folder/assignUserContext";
+import RoleContext from "../context/role context folder/roleContext";
 
-const AddUserPopup = () => {
+const AddAssignUserPopup = () => {
+  const { roleData } = useContext(RoleContext);
   const {
     inputData,
     setInputData,
@@ -13,7 +15,7 @@ const AddUserPopup = () => {
     isSubmit,
     setIsSubmit,
     addUser,
-  } = useContext(UserContext);
+  } = useContext(AssignUserContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,8 +23,8 @@ const AddUserPopup = () => {
   };
 
   const handleClose = () => {
-    $(".add-user-bg").fadeOut(300);
-    $(".add-user").slideUp(500);
+    $(".add-assign-user-bg").fadeOut(300);
+    $(".add-assign-user").slideUp(500);
     setInputData(initialValue);
     setFormError({});
     setIsSubmit(false);
@@ -30,25 +32,19 @@ const AddUserPopup = () => {
 
   const validate = (values) => {
     const errors = {};
-    const numv = /^[0-9]+$/i;
-    const digits = /^\d{10}$/;
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
     if (!values.name) {
       errors.name = "Required";
     }
-    if (!values.address) {
-      errors.address = "Required";
+    if (!values.password) {
+      errors.password = "Required";
+    }
+    if (!values.roleName) {
+      errors.roleName = "Required";
     }
     if (!regex.test(values.email)) {
       errors.email = "This is not a valid email format";
-    }
-    if (!values.number) {
-      errors.number = "Required";
-    } else if (!numv.test(values.number)) {
-      errors.number = "Must be digits";
-    } else if (!digits.test(values.number)) {
-      errors.number = "Must be 10 digits";
     }
 
     return errors;
@@ -69,8 +65,8 @@ const AddUserPopup = () => {
 
   return (
     <>
-      <section className="popup-bg add-user-bg">
-        <div className="popup add-user">
+      <section className="popup-bg add-assign-user-bg">
+        <div className="popup add-assign-user">
           <div className="popup-head">
             <h4>Add User</h4>
             <div className="close" onClick={handleClose}>
@@ -83,7 +79,7 @@ const AddUserPopup = () => {
               <div className="uk-grid uk-child-width-1-2@s">
                 <div className="form-wrapper">
                   <label htmlFor="">
-                    Name<sup className="sup-col">*</sup>
+                    Full Name<sup className="sup-col">*</sup>
                   </label>
                   <input
                     type="text"
@@ -109,29 +105,39 @@ const AddUserPopup = () => {
                 </div>
                 <div className="form-wrapper">
                   <label htmlFor="">
-                    Number<sup className="sup-col">*</sup>
+                    Password<sup className="sup-col">*</sup>
                   </label>
                   <input
-                    type="text"
+                    type="password"
                     className="uk-input"
-                    name="number"
+                    name="password"
                     onChange={handleChange}
-                    value={inputData.number}
+                    value={inputData.password}
                   />
-                  <p className="errormsg ">{formError.number}</p>
+                  <p className="errormsg ">{formError.password}</p>
                 </div>
                 <div className="form-wrapper">
                   <label htmlFor="">
-                    Address<sup className="sup-col">*</sup>
+                    Select role<sup className="sup-col">*</sup>
                   </label>
-                  <input
-                    type="text"
-                    className="uk-input"
-                    name="address"
+                  <select
+                    class="uk-select"
+                    value={inputData.roleName}
+                    name="roleName"
                     onChange={handleChange}
-                    value={inputData.address}
-                  />
-                  <p className="errormsg ">{formError.address}</p>
+                  >
+                    <option disabled value="" selected>
+                      Select Role
+                    </option>
+                    {roleData.map((list) => (
+                      <>
+                        <option key={list._id} value={list.roleName}>
+                          {list.roleName}
+                        </option>
+                      </>
+                    ))}
+                  </select>
+                  <p className="errormsg ">{formError.roleName}</p>
                 </div>
               </div>
             </form>
@@ -150,4 +156,4 @@ const AddUserPopup = () => {
   );
 };
 
-export default AddUserPopup;
+export default AddAssignUserPopup;

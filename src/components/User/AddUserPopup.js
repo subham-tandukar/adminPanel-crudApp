@@ -1,18 +1,18 @@
 import React, { useContext, useEffect } from "react";
 import $ from "jquery";
 import { GrFormClose } from "react-icons/gr";
-import UserContext from "./context/userContext";
+import UserContext from "../context/user context folder/userContext";
 
-const EditUserPopup = () => {
+const AddUserPopup = () => {
   const {
     inputData,
     setInputData,
     formError,
     initialValue,
     setFormError,
-    perEditSubmit,
-    setPerEditSubmit,
-    editUser,
+    isSubmit,
+    setIsSubmit,
+    addUser,
   } = useContext(UserContext);
 
   const handleChange = (e) => {
@@ -21,11 +21,11 @@ const EditUserPopup = () => {
   };
 
   const handleClose = () => {
-    $(".edit-user-bg").fadeOut(300);
-    $(".edit-user").slideUp(500);
+    $(".add-user-bg").fadeOut(300);
+    $(".add-user").slideUp(500);
     setInputData(initialValue);
     setFormError({});
-    setPerEditSubmit(false);
+    setIsSubmit(false);
   };
 
   const validate = (values) => {
@@ -57,22 +57,22 @@ const EditUserPopup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormError(validate(inputData));
-    setPerEditSubmit(true);
+    setIsSubmit(true);
   };
 
   useEffect(() => {
-    if (Object.keys(formError).length === 0 && perEditSubmit) {
-      editUser();
-      setPerEditSubmit(false);
+    if (Object.keys(formError).length === 0 && isSubmit) {
+      addUser();
+      setIsSubmit(false);
     }
   }, [formError]);
 
   return (
     <>
-      <section className="popup-bg edit-user-bg">
-        <div className="popup edit-user">
+      <section className="popup-bg add-user-bg">
+        <div className="popup add-user">
           <div className="popup-head">
-            <h4>Edit User</h4>
+            <h4>Add User</h4>
             <div className="close" onClick={handleClose}>
               <GrFormClose size="2rem" color="#fff" />
             </div>
@@ -138,7 +138,7 @@ const EditUserPopup = () => {
           </div>
           <div className="popup-footer">
             <button className="uk-button" onClick={handleSubmit}>
-              Update
+              Submit
             </button>
             <button className="uk-button cancel-btn" onClick={handleClose}>
               Cancel
@@ -150,4 +150,4 @@ const EditUserPopup = () => {
   );
 };
 
-export default EditUserPopup;
+export default AddUserPopup;

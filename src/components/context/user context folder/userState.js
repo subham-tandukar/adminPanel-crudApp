@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Fetchdata } from "../hooks/getData";
 import UserContext from "./userContext";
 import $ from "jquery";
 import { ToastContainer, toast } from "react-toastify";
-import "../../../node_modules/react-toastify/dist/ReactToastify.css";
+import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
 
 function UserState(props) {
-  const base_url = "https://adminpanel-crudapp.herokuapp.com";
+  // const base_url = "https://adminpanel-crudapp.herokuapp.com";
+  // const base_url = "https://role-and-permission.herokuapp.com/";
+
+  const base_url = "http://localhost:8003";
   const initialValue = {
     name: "",
     email: "",
@@ -19,6 +21,7 @@ function UserState(props) {
   const [reload, setReload] = useState(false);
   const [formError, setFormError] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [userData, setUserData] = useState([]);
   console.log("get user data", userData);
@@ -102,7 +105,7 @@ function UserState(props) {
   };
 
   // view user
-  const [loading, setLoading] = useState(true);
+
   const [viewID, setViewId] = useState("");
   const [view, setView] = useState([]);
 
@@ -249,6 +252,7 @@ function UserState(props) {
         editUser,
         handleDelete,
         deleteUser,
+        base_url,
       }}
     >
       {props.children}

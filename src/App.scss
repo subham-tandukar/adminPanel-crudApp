@@ -100,6 +100,67 @@ h5 {
 
 // <----- basic css ends ----->
 
+// <----- login css starts ----->
+.login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+
+  .login-wrapper {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+
+    margin-left: auto;
+    margin-right: auto;
+    .login-left {
+      background-image: $bg;
+      height: 390px;
+      padding: 3rem 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      img {
+        height: 100px;
+        width: 100px;
+        margin: 0 auto;
+      }
+
+      h3 {
+        color: $red;
+        font-weight: bold;
+        font-size: 16px;
+      }
+      span {
+        color: $blue;
+      }
+    }
+    .login-right {
+      border: 1px solid #d9d9d9;
+      padding: 1.45rem 2rem;
+      border-left: none;
+      height: 390px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      p {
+        margin: 0;
+      }
+      .submit {
+        margin: 0 auto;
+        display: block;
+        margin-top: 2rem;
+      }
+      .athr {
+        color: $red;
+        margin-top: 1rem;
+        text-align: center;
+      }
+    }
+  }
+}
+// <----- login css ends ----->
+
 // <----- ham menu css starts ----->
 .menu2 {
   border-radius: 5px;
@@ -544,8 +605,9 @@ form {
 .uk-textarea:focus {
   border-color: $yellow;
 }
-.uk-input {
-  height: 30px;
+.uk-input,
+.uk-select {
+  height: 30px !important;
   border-radius: 3px;
   font-size: 12px;
   color: #000;
@@ -664,7 +726,7 @@ form {
 }
 
 .Toastify__toast-container--top-center {
-  z-index: 100000;
+  z-index: 100000 !important;
 }
 
 // .add-user,
@@ -678,5 +740,48 @@ form {
 //   display: none;
 // }
 // <----- popup css ends ----->
+
+// <----- error page css starts ----->
+.error-page {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #fff;
+  z-index: 10000000000;
+
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      rgba(254, 249, 228, 0) 0%,
+      #d6bb40 200%
+    );
+    top: 0;
+    left: 0;
+
+    .content {
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      h1 {
+        font-weight: bold;
+        margin: 0;
+        font-size: 90px;
+      }
+
+      p {
+        color: #000;
+      }
+    }
+  }
+}
+// <----- error page css ends ----->
 
 @import "responsive";

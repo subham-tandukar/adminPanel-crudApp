@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import $ from "jquery";
 import { GrFormClose } from "react-icons/gr";
-import UserContext from "./context/userContext";
+import UserContext from "../context/user context folder/userContext";
 
-const DeletePopup = () => {
+const DeleteUserPopup = () => {
   const { deleteUser } = useContext(UserContext);
 
   const handleClose = () => {
@@ -52,4 +52,4 @@ const DeletePopup = () => {
   );
 };
 
-export default DeletePopup;
+export default DeleteUserPopup;

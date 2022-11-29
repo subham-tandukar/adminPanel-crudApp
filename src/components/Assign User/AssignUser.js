@@ -2,20 +2,20 @@ import React, { useContext, useRef, useState } from "react";
 import DataTable from "react-data-table-component";
 import { AiFillPrinter } from "react-icons/ai";
 import { BsFileEarmarkPdfFill } from "react-icons/bs";
-// import { RiFileExcel2Fill } from "react-icons/ri";
-import AddUserPopup from "./AddUserPopup";
 import $ from "jquery";
-import UserContext from "./context/userContext";
 import { GrFormClose } from "react-icons/gr";
-import EditUserPopup from "./EditUserPopup";
-import ViewUserPopup from "./ViewUserPopup";
-import DeletePopup from "./DeletePopup";
 import { ToastContainer } from "react-toastify";
 import ReactToPrint from "react-to-print";
-// import ReactHTMLTableToExcel from "react-html-table-to-excel";
-import "../../node_modules/react-toastify/dist/ReactToastify.css";
+import "../../../node_modules/react-toastify/dist/ReactToastify.css";
 import Pdf from "react-to-pdf";
-const User = () => {
+import AssignUserContext from "../context/assign user context folder/assignUserContext";
+import AddAssignUserPopup from "./AddAssignUserPopup";
+import ViewAssignUserPopup from "./ViewAssignUserPopup";
+import EditAssignUserPopup from "./EditAssignUserPopup";
+import DeleteAssignUserPopup from "./DeleteAssignUserPopup";
+import PermissionContext from "../context/permission context folder/permissionContext";
+
+const AssignUser = () => {
   const {
     setInputData,
     initialValue,
@@ -24,7 +24,9 @@ const User = () => {
     handleView,
     handleDelete,
     loading,
-  } = useContext(UserContext);
+  } = useContext(AssignUserContext);
+
+  const { assignUser } = useContext(PermissionContext);
 
   const componentRef = useRef();
 
@@ -40,8 +42,8 @@ const User = () => {
   };
 
   const handleAdd = () => {
-    $(".add-user-bg").fadeIn(300);
-    $(".add-user").slideDown(500);
+    $(".add-assign-user-bg").fadeIn(300);
+    $(".add-assign-user").slideDown(500);
     setInputData(initialValue);
   };
 
@@ -69,19 +71,13 @@ const User = () => {
       selector: (row) => row.email,
     },
     {
-      name: "Number",
+      name: "Role",
       // grow: 0,
       center: true,
       sortable: true,
-      selector: (row) => row.number,
+      selector: (row) => row.roleName,
     },
-    {
-      name: "Address",
-      // grow: 0,
-      center: true,
-      sortable: true,
-      selector: (row) => row.address,
-    },
+
     {
       name: "Action",
       // grow: 0,
@@ -92,15 +88,21 @@ const User = () => {
             <span className="uk-margin-right" uk-tooltip="View">
               <i className="fas fa-eye" onClick={() => handleView(row)}></i>
             </span>
-            <span className="uk-margin-right" uk-tooltip="Edit">
-              <i className="fas fa-edit" onClick={() => handleEdit(row)}></i>
-            </span>
-            <span uk-tooltip="Delete">
-              <i
-                className="fas fa-trash-alt"
-                onClick={() => handleDelete(row)}
-              ></i>
-            </span>
+
+            {assignUser.update ? (
+              <span className="uk-margin-right" uk-tooltip="Edit">
+                <i className="fas fa-edit" onClick={() => handleEdit(row)}></i>
+              </span>
+            ) : null}
+
+            {assignUser.deleted ? (
+              <span uk-tooltip="Delete">
+                <i
+                  className="fas fa-trash-alt"
+                  onClick={() => handleDelete(row)}
+                ></i>
+              </span>
+            ) : null}
           </>
         );
       },
@@ -130,13 +132,15 @@ const User = () => {
       />
       <div className=" title uk-flex uk-flex-between uk-flex-middle uk-flex-wrap">
         <h4>
-          <i className="fas fa-user-tie uk-margin-small-right"></i>
-          User
+          <i className="fas fa-user uk-margin-small-right"></i>
+          Assign User
         </h4>
         <div>
-          <button className="uk-button" onClick={handleAdd}>
-            + Add User
-          </button>
+          {assignUser.write ? (
+            <button className="uk-button" onClick={handleAdd}>
+              + Add User
+            </button>
+          ) : null}
         </div>
       </div>
 
@@ -237,12 +241,12 @@ const User = () => {
         </div>
       </div>
 
-      <AddUserPopup />
-      <ViewUserPopup />
-      <EditUserPopup />
-      <DeletePopup />
+      <AddAssignUserPopup />
+      <ViewAssignUserPopup />
+      <EditAssignUserPopup />
+      <DeleteAssignUserPopup />
     </>
   );
 };
 
-export default User;
+export default AssignUser;

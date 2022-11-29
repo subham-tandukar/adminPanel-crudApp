@@ -93,6 +93,62 @@ h5 {
   margin-top: -1rem;
 }
 
+.login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.login .login-wrapper {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.login .login-wrapper .login-left {
+  background-image: linear-gradient(180deg, rgba(254, 249, 228, 0) 0%, #d6bb40 100%);
+  height: 390px;
+  padding: 3rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.login .login-wrapper .login-left img {
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+}
+.login .login-wrapper .login-left h3 {
+  color: #ff0002;
+  font-weight: bold;
+  font-size: 16px;
+}
+.login .login-wrapper .login-left span {
+  color: #011cfb;
+}
+.login .login-wrapper .login-right {
+  border: 1px solid #d9d9d9;
+  padding: 1.45rem 2rem;
+  border-left: none;
+  height: 390px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.login .login-wrapper .login-right p {
+  margin: 0;
+}
+.login .login-wrapper .login-right .submit {
+  margin: 0 auto;
+  display: block;
+  margin-top: 2rem;
+}
+.login .login-wrapper .login-right .athr {
+  color: #ff0002;
+  margin-top: 1rem;
+  text-align: center;
+}
+
 .menu2 {
   border-radius: 5px;
 }
@@ -541,8 +597,9 @@ form .form-wrapper label {
   border-color: #c68401;
 }
 
-.uk-input {
-  height: 30px;
+.uk-input,
+.uk-select {
+  height: 30px !important;
   border-radius: 3px;
   font-size: 12px;
   color: #000;
@@ -647,7 +704,40 @@ form .form-wrapper label {
 }
 
 .Toastify__toast-container--top-center {
-  z-index: 100000;
+  z-index: 100000 !important;
+}
+
+.error-page {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #fff;
+  z-index: 10000000000;
+}
+.error-page .overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(254, 249, 228, 0) 0%, #d6bb40 200%);
+  top: 0;
+  left: 0;
+}
+.error-page .overlay .content {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.error-page .overlay .content h1 {
+  font-weight: bold;
+  margin: 0;
+  font-size: 90px;
+}
+.error-page .overlay .content p {
+  color: #000;
 }
 
 @media (max-width: 960px) {
