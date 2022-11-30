@@ -6,34 +6,9 @@ import AuthContext from "../context/auth-context";
 import LogOut from "./LogOut";
 import UserContext from "../context/user context folder/userContext";
 
-$(function () {
-  $(".ham").click(function () {
-    $("aside").toggleClass("width");
-    $("article").toggleClass("max-width");
-    $(".nav").toggleClass("nav-width");
-    $(".logo").toggleClass("opacity");
-    $(".show-logo").toggleClass("d-block");
-    $(".list-name").toggleClass("opacity");
-    $(".uk-accordion-content").toggleClass("uk-hidden");
-  });
-  $(".mob-ham").click(function () {
-    $("aside").toggleClass("width");
-    // $("article").toggleClass("max-width");
-    // $(".nav").toggleClass("nav-width");
-    $(".logo").toggleClass("opacity");
-    $(".show-logo").toggleClass("d-block");
-    $(".list-name").toggleClass("opacity");
-    $(".uk-accordion-content").toggleClass("uk-hidden");
-  });
-  $("#menu2").click(function () {
-    $("#menu2").toggleClass("changebtn-2");
-  });
-});
-
-const Navbar = ({ userDetails }) => {
+const Navbar = ({ userDetails, handleMobHam }) => {
   const { logout } = useContext(AuthContext);
   let navigate = useNavigate();
-
 
   const logoutHandler = (e) => {
     localStorage.clear();
@@ -47,13 +22,27 @@ const Navbar = ({ userDetails }) => {
     $(".log-out").slideDown(500);
   };
 
+  const handleMenu = () => {
+    $("#menu2").toggleClass("changebtn-2");
+  };
+
+  const handleHam = () => {
+    $("aside").toggleClass("width");
+    $("article").toggleClass("max-width");
+    $(".nav").toggleClass("nav-width");
+    $(".logo").toggleClass("opacity");
+    $(".show-logo").toggleClass("d-block");
+    $(".list-name").toggleClass("opacity");
+    $(".uk-accordion-content").toggleClass("uk-hidden");
+  };
+
   return (
     <>
       <nav>
         <div className="uk-flex uk-flex-between  nav ">
           <div className="uk-flex uk-flex-middle">
-            <div className="ham uk-visible@m">
-              <div className="menu2" id="menu2">
+            <div className="ham uk-visible@m" onClick={handleHam}>
+              <div className="menu2" id="menu2" onClick={handleMenu}>
                 <div>
                   <span className="bar-1"></span>
                   <span className="bar-2"></span>
@@ -61,7 +50,7 @@ const Navbar = ({ userDetails }) => {
                 </div>
               </div>
             </div>
-            <div className="mob-ham uk-hidden@m">
+            <div className="mob-ham uk-hidden@m" onClick={handleMobHam}>
               <div className="menu2">
                 <div>
                   <span className="bar-1"></span>

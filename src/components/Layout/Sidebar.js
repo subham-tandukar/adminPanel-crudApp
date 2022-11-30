@@ -7,16 +7,7 @@ import RoleContext from "../context/role context folder/roleContext";
 import PermissionContext from "../context/permission context folder/permissionContext";
 import UserContext from "../context/user context folder/userContext";
 
-$(function () {
-  $(".dropdown-list").click(function () {
-    $("#dropdown-active").addClass("active");
-  });
-  $(".non-active").click(function () {
-    $("#dropdown-active").removeClass("active");
-  });
-});
-
-const Sidebar = ({ userDetails }) => {
+const Sidebar = ({ userDetails, handleMobHam }) => {
   const { roleData } = useContext(RoleContext);
   const { base_url } = useContext(UserContext);
 
@@ -83,6 +74,13 @@ const Sidebar = ({ userDetails }) => {
     PermData();
   }, [id]);
 
+  const handleDropdown = () => {
+    $("#dropdown-active").addClass("active");
+  };
+  const handleActive = () => {
+    $("#dropdown-active").removeClass("active");
+  };
+
   return (
     <>
       <div className="brand">
@@ -94,6 +92,7 @@ const Sidebar = ({ userDetails }) => {
           <span
             className="mob-close-icon uk-hidden@m mob-ham"
             uk-tooltip="Close"
+            onClick={handleMobHam}
           >
             <GrFormClose size="1.5rem" />
           </span>
@@ -102,7 +101,7 @@ const Sidebar = ({ userDetails }) => {
 
       <ul className="uk-list uk-margin-remove-top uk-visible@m">
         <li>
-          <NavLink to="/" className="list non-active">
+          <NavLink to="/" className="list non-active" onClick={handleActive}>
             <i className="fas fa-tachometer-alt"></i>
             <span className="list-name">Dashboard</span>
           </NavLink>
@@ -110,7 +109,11 @@ const Sidebar = ({ userDetails }) => {
 
         {role.read ? (
           <li>
-            <NavLink to="/role" className="list non-active">
+            <NavLink
+              to="/role"
+              className="list non-active"
+              onClick={handleActive}
+            >
               <i className="fas fa-user-tag"></i>
               <span className="list-name">Role</span>
             </NavLink>
@@ -119,7 +122,11 @@ const Sidebar = ({ userDetails }) => {
 
         {permission.read ? (
           <li>
-            <NavLink to="/permission" className="list non-active">
+            <NavLink
+              to="/permission"
+              className="list non-active"
+              onClick={handleActive}
+            >
               <i className="fas fa-check-circle"></i>
               <span className="list-name">Permission</span>
             </NavLink>
@@ -128,7 +135,11 @@ const Sidebar = ({ userDetails }) => {
 
         {assignUser.read ? (
           <li>
-            <NavLink to="/assign-user" className="list non-active">
+            <NavLink
+              to="/assign-user"
+              className="list non-active"
+              onClick={handleActive}
+            >
               <i className="fas fa-user"></i>
               <span className="list-name">Assign User</span>
             </NavLink>
@@ -136,7 +147,7 @@ const Sidebar = ({ userDetails }) => {
         ) : null}
 
         {/* <li>
-          <NavLink to="/user" className="list non-active">
+          <NavLink to="/user" className="list non-active" onClick={handleActive}>
             <i className="fas fa-user-tie"></i>
             <span className="list-name">User</span>
           </NavLink>
@@ -144,7 +155,11 @@ const Sidebar = ({ userDetails }) => {
 
         {form.read ? (
           <li>
-            <NavLink to="/form" className="list non-active">
+            <NavLink
+              to="/form"
+              className="list non-active"
+              onClick={handleActive}
+            >
               <i className="fab fa-wpforms"></i>
               <span className="list-name ">Form</span>
             </NavLink>
@@ -172,17 +187,29 @@ const Sidebar = ({ userDetails }) => {
                 <div className="uk-accordion-content uk-margin-remove-top uk-hidden">
                   <ul className="uk-nav uk-dropdown-nav">
                     <li style={{ borderBottom: "none", borderTop: "none" }}>
-                      <Link to="/filter1" className="dropdown-list">
+                      <Link
+                        to="/filter1"
+                        className="dropdown-list"
+                        onClick={handleDropdown}
+                      >
                         Filter1
                       </Link>
                     </li>
                     <li style={{ borderBottom: "none" }}>
-                      <Link to="/filter2" className="dropdown-list">
+                      <Link
+                        to="/filter2"
+                        className="dropdown-list"
+                        onClick={handleDropdown}
+                      >
                         Filter2
                       </Link>
                     </li>
                     <li style={{ borderBottom: "none" }}>
-                      <Link to="/filter3" className="dropdown-list">
+                      <Link
+                        to="/filter3"
+                        className="dropdown-list"
+                        onClick={handleDropdown}
+                      >
                         Filter3
                       </Link>
                     </li>
@@ -195,7 +222,11 @@ const Sidebar = ({ userDetails }) => {
 
         {sortable.read ? (
           <li>
-            <NavLink to="/sortable" className="list non-active">
+            <NavLink
+              to="/sortable"
+              className="list non-active"
+              onClick={handleActive}
+            >
               <i className="fas fa-sort" style={{ marginLeft: "1rem" }}></i>
               <span className="list-name">Sortable</span>
             </NavLink>
@@ -204,7 +235,11 @@ const Sidebar = ({ userDetails }) => {
 
         {slideshow.read ? (
           <li>
-            <NavLink to="/slideshow" className="list non-active">
+            <NavLink
+              to="/slideshow"
+              className="list non-active"
+              onClick={handleActive}
+            >
               <i className="fas fa-photo-video"></i>
               <span className="list-name">Slideshow</span>
             </NavLink>
@@ -215,7 +250,11 @@ const Sidebar = ({ userDetails }) => {
       {/* for mob version  */}
       <ul className="uk-list uk-margin-remove-top uk-hidden@m">
         <li>
-          <NavLink to="/" className="list non-active mob-ham">
+          <NavLink
+            to="/"
+            className="list non-active mob-ham"
+            onClick={handleActive}
+          >
             <i className="fas fa-tachometer-alt"></i>
             <span className="list-name">Dashboard</span>
           </NavLink>
@@ -223,7 +262,11 @@ const Sidebar = ({ userDetails }) => {
 
         {role.read ? (
           <li>
-            <NavLink to="/role" className="list non-active mob-ham">
+            <NavLink
+              to="/role"
+              className="list non-active mob-ham"
+              onClick={handleActive}
+            >
               <i className="fas fa-user-tag"></i>
               <span className="list-name">Role</span>
             </NavLink>
@@ -232,7 +275,11 @@ const Sidebar = ({ userDetails }) => {
 
         {permission.read ? (
           <li>
-            <NavLink to="/permission" className="list non-active mob-ham">
+            <NavLink
+              to="/permission"
+              className="list non-active mob-ham"
+              onClick={handleActive}
+            >
               <i className="fas fa-check-circle"></i>
               <span className="list-name">Permission</span>
             </NavLink>
@@ -241,7 +288,11 @@ const Sidebar = ({ userDetails }) => {
 
         {assignUser.read ? (
           <li>
-            <NavLink to="/assign-user" className="list non-active mob-ham">
+            <NavLink
+              to="/assign-user"
+              className="list non-active mob-ham"
+              onClick={handleActive}
+            >
               <i className="fas fa-user"></i>
               <span className="list-name">Assign User</span>
             </NavLink>
@@ -257,7 +308,11 @@ const Sidebar = ({ userDetails }) => {
 
         {form.read ? (
           <li>
-            <NavLink to="/form" className="list non-active mob-ham">
+            <NavLink
+              to="/form"
+              className="list non-active mob-ham"
+              onClick={handleActive}
+            >
               <i className="fab fa-wpforms"></i>
               <span className="list-name ">Form</span>
             </NavLink>
@@ -285,17 +340,29 @@ const Sidebar = ({ userDetails }) => {
                 <div className="uk-accordion-content uk-margin-remove-top uk-hidden">
                   <ul className="uk-nav uk-dropdown-nav">
                     <li style={{ borderBottom: "none", borderTop: "none" }}>
-                      <Link to="/filter1" className="dropdown-list mob-ham">
+                      <Link
+                        to="/filter1"
+                        className="dropdown-list mob-ham"
+                        onClick={handleDropdown}
+                      >
                         Filter1
                       </Link>
                     </li>
                     <li style={{ borderBottom: "none" }}>
-                      <Link to="/filter2" className="dropdown-list mob-ham">
+                      <Link
+                        to="/filter2"
+                        className="dropdown-list mob-ham"
+                        onClick={handleDropdown}
+                      >
                         Filter2
                       </Link>
                     </li>
                     <li style={{ borderBottom: "none" }}>
-                      <Link to="/filter3" className="dropdown-list mob-ham">
+                      <Link
+                        to="/filter3"
+                        className="dropdown-list mob-ham"
+                        onClick={handleDropdown}
+                      >
                         Filter3
                       </Link>
                     </li>
@@ -308,7 +375,11 @@ const Sidebar = ({ userDetails }) => {
 
         {sortable.read ? (
           <li>
-            <NavLink to="/sortable" className="list non-active mob-ham">
+            <NavLink
+              to="/sortable"
+              className="list non-active mob-ham"
+              onClick={handleActive}
+            >
               <i className="fas fa-sort" style={{ marginLeft: "1rem" }}></i>
               <span className="list-name">Sortable</span>
             </NavLink>
@@ -317,7 +388,11 @@ const Sidebar = ({ userDetails }) => {
 
         {slideshow.read ? (
           <li>
-            <NavLink to="/slideshow" className="list non-active mob-ham">
+            <NavLink
+              to="/slideshow"
+              className="list non-active mob-ham"
+              onClick={handleActive}
+            >
               <i className="fas fa-photo-video"></i>
               <span className="list-name">Slideshow</span>
             </NavLink>

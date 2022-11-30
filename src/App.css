@@ -238,8 +238,7 @@ aside .logo {
 }
 
 aside .mob-close-icon {
-  position: absolute;
-  right: 5px;
+  margin-left: 2rem;
   cursor: pointer;
 }
 aside .mob-close-icon svg > path[stroke] {
