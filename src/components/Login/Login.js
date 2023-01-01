@@ -4,9 +4,11 @@ import UserContext from "../context/note context folder/noteContext";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/auth-context";
+import NoteContext from "../context/note context folder/noteContext";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
+  const { base_url } = useContext(NoteContext);
   const initialvalue = { email: "", password: "" };
   const [inputData, setInputData] = useState(initialvalue);
   const [formError, setFormError] = useState({});
@@ -45,7 +47,7 @@ const Login = () => {
   const loggedin = async () => {
     const { email, password } = inputData;
 
-    const response = await fetch("http://localhost:8003/login", {
+    const response = await fetch(`${base_url}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
