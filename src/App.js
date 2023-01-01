@@ -42,10 +42,10 @@ const App = () => {
       <div className="app">
         {User && (
           <>
-            <NoteState>
-              <RoleState>
-                <PermissionState>
-                  <AssignUserState>
+            <AssignUserState>
+              <NoteState>
+                <RoleState>
+                  <PermissionState>
                     <Layout>
                       <Routes>
                         <Route path="/" element={<Dashboard />} />
@@ -114,10 +114,10 @@ const App = () => {
                         <Route path="*" element={<ErrorPage />} />
                       </Routes>
                     </Layout>
-                  </AssignUserState>
-                </PermissionState>
-              </RoleState>
-            </NoteState>
+                  </PermissionState>
+                </RoleState>
+              </NoteState>
+            </AssignUserState>
           </>
         )}
       </div>

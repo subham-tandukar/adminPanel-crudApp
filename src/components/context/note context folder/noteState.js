@@ -3,13 +3,16 @@ import NoteContext from "./noteContext";
 import $ from "jquery";
 import { ToastContainer, toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
+import AuthContext from "../auth-context";
+import AssignUserContext from "../assign user context folder/assignUserContext";
 
 function NoteState(props) {
-  // const base_url = "https://adminpanel-crudapp.herokuapp.com";
-  // const base_url = "https://role-and-permission.herokuapp.com";
-  const base_url = "https://web-production-cff8.up.railway.app";
+  // const baseURL = "https://adminpanel-crudapp.herokuapp.com";
+  // const baseURL = "https://role-and-permission.herokuapp.com";
+  // const baseURL = "https://web-production-cff8.up.railway.app";
+  // const baseURL = "http://localhost:8003";
 
-  // const base_url = "http://localhost:8003";
+  const { baseURL } = useContext(AssignUserContext);
   const initialValue = {
     title: "",
     description: "",
@@ -51,7 +54,7 @@ function NoteState(props) {
   const addNote = async () => {
     const { title, description } = inputData;
 
-    const response = await fetch(`${base_url}/addNote`, {
+    const response = await fetch(`${baseURL}/addNote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,7 +87,7 @@ function NoteState(props) {
   }, [reload]);
 
   const getNoteData = async (e) => {
-    const response = await fetch(`${base_url}/getData`, {
+    const response = await fetch(`${baseURL}/getData`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -115,7 +118,7 @@ function NoteState(props) {
   const id = viewID;
 
   const viewData = async () => {
-    const response = await fetch(`${base_url}/getNote/${id}`, {
+    const response = await fetch(`${baseURL}/getNote/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -155,7 +158,7 @@ function NoteState(props) {
   const editNote = async () => {
     const { title, description } = inputData;
 
-    const response = await fetch(`${base_url}/updateNote/${editid}`, {
+    const response = await fetch(`${baseURL}/updateNote/${editid}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -194,7 +197,7 @@ function NoteState(props) {
   const deleteid = deleteID;
 
   const deleteNote = async () => {
-    const response = await fetch(`${base_url}/deleteNote/${deleteid}`, {
+    const response = await fetch(`${baseURL}/deleteNote/${deleteid}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -241,7 +244,7 @@ function NoteState(props) {
         editNote,
         handleDelete,
         deleteNote,
-        base_url,
+        // baseURL,
       }}
     >
       {props.children}

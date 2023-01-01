@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import PermissionContext from "./permissionContext";
-import $ from "jquery";
 import { toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
-import UserContext from "../note context folder/noteContext";
-import RoleContext from "../role context folder/roleContext";
-import NoteContext from "../note context folder/noteContext";
+import AuthContext from "../auth-context";
+import AssignUserContext from "../assign user context folder/assignUserContext";
 
 function PermissionState(props) {
-  const { base_url } = useContext(NoteContext);
+  const { baseURL } = useContext(AssignUserContext);
   const initialRoleValue = {
     roleName: "",
     closeChecked: "",
@@ -69,7 +67,7 @@ function PermissionState(props) {
   console.log("id", id);
 
   const viewData = async () => {
-    const response = await fetch(`${base_url}/getRole/${id}`, {
+    const response = await fetch(`${baseURL}/getRole/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -133,7 +131,7 @@ function PermissionState(props) {
 
   // assign permission
   const assignPermission = async () => {
-    const response = await fetch(`${base_url}/updateRole/${id}`, {
+    const response = await fetch(`${baseURL}/updateRole/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

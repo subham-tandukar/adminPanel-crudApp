@@ -4,10 +4,15 @@ import $ from "jquery";
 import { ToastContainer, toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
 import NoteContext from "../note context folder/noteContext";
+import AuthContext from "../auth-context";
 
 function AssignUserState(props) {
-  // const base_url = "https://adminpanel-crudapp.herokuapp.com";
-  const { base_url } = useContext(NoteContext);
+  // const baseURL = "https://adminpanel-crudapp.herokuapp.com";
+  // const { baseURL } = useContext(AuthContext);
+  // const baseURL = process.env.REACT_APP_URL;
+  // const baseURL = "http://localhost:8003";
+  const baseURL = "https://web-production-cff8.up.railway.app";
+
   const [userDetails, setUserDetails] = useState("");
   const initialValue = {
     name: "",
@@ -30,7 +35,7 @@ function AssignUserState(props) {
   const addUser = async () => {
     const { name, email, password, roleName } = inputData;
 
-    const response = await fetch(`${base_url}/addAssignUser`, {
+    const response = await fetch(`${baseURL}/addAssignUser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +70,7 @@ function AssignUserState(props) {
   }, [reload]);
 
   const getUserData = async (e) => {
-    const response = await fetch(`${base_url}/getAssignUserData`, {
+    const response = await fetch(`${baseURL}/getAssignUserData`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +101,7 @@ function AssignUserState(props) {
   const id = viewID;
 
   const viewData = async () => {
-    const response = await fetch(`${base_url}/getAssignUser/${id}`, {
+    const response = await fetch(`${baseURL}/getAssignUser/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -140,7 +145,7 @@ function AssignUserState(props) {
   const editUser = async () => {
     const { name, email, password, roleName } = inputData;
 
-    const response = await fetch(`${base_url}/updateAssignUser/${editid}`, {
+    const response = await fetch(`${baseURL}/updateAssignUser/${editid}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -183,7 +188,7 @@ function AssignUserState(props) {
   const deleteid = deleteID;
 
   const deleteUser = async () => {
-    const response = await fetch(`${base_url}/deleteAssignUser/${deleteid}`, {
+    const response = await fetch(`${baseURL}/deleteAssignUser/${deleteid}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -230,7 +235,7 @@ function AssignUserState(props) {
         editUser,
         handleDelete,
         deleteUser,
-        base_url,
+        baseURL,
         userDetails,
         setUserDetails,
       }}

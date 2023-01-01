@@ -6,10 +6,11 @@ import { GrFormClose } from "react-icons/gr";
 import RoleContext from "../context/role context folder/roleContext";
 import PermissionContext from "../context/permission context folder/permissionContext";
 import UserContext from "../context/note context folder/noteContext";
+import AssignUserContext from "../context/assign user context folder/assignUserContext";
 
 const Sidebar = ({ userDetails, handleMobHam }) => {
   const { roleData } = useContext(RoleContext);
-  const { base_url } = useContext(UserContext);
+  const { baseURL } = useContext(AssignUserContext);
 
   const {
     role,
@@ -50,7 +51,7 @@ const Sidebar = ({ userDetails, handleMobHam }) => {
   // set permission
 
   const PermData = async () => {
-    const response = await fetch(`${base_url}/getRole/${id}`, {
+    const response = await fetch(`${baseURL}/getRole/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

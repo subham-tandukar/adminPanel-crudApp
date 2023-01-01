@@ -1,18 +1,19 @@
 import React, { useContext, useState, useEffect } from "react";
 import logo from "../../img/logo.png";
-import UserContext from "../context/note context folder/noteContext";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/auth-context";
-import NoteContext from "../context/note context folder/noteContext";
+import AssignUserContext from "../context/assign user context folder/assignUserContext";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
-  const { base_url } = useContext(NoteContext);
+  // const { baseURL } = useContext(AssignUserContext);
   const initialvalue = { email: "", password: "" };
   const [inputData, setInputData] = useState(initialvalue);
   const [formError, setFormError] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+
+  const baseURL = "https://web-production-cff8.up.railway.app";
 
   let navigate = useNavigate();
 
@@ -47,7 +48,7 @@ const Login = () => {
   const loggedin = async () => {
     const { email, password } = inputData;
 
-    const response = await fetch(`${base_url}/login`, {
+    const response = await fetch(`${baseURL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

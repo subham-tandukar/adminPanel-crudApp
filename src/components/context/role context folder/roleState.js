@@ -3,11 +3,11 @@ import RoleContext from "./roleContext";
 import $ from "jquery";
 import { toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
-// import UserContext from "../note context folder/noteContext";
-import NoteContext from "../note context folder/noteContext";
+import AuthContext from "../auth-context";
+import AssignUserContext from "../assign user context folder/assignUserContext";
 
 function RoleState(props) {
-  const { base_url } = useContext(NoteContext);
+  const { baseURL } = useContext(AssignUserContext);
   const [checked, setChecked] = useState(false);
   const initialValue = {
     roleName: "",
@@ -92,7 +92,7 @@ function RoleState(props) {
       slideshow,
     } = inputData;
 
-    const response = await fetch(`${base_url}/addRole`, {
+    const response = await fetch(`${baseURL}/addRole`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -133,7 +133,7 @@ function RoleState(props) {
   }, [reload]);
 
   const getRoleData = async (e) => {
-    const response = await fetch(`${base_url}/getRoleData`, {
+    const response = await fetch(`${baseURL}/getRoleData`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -165,7 +165,7 @@ function RoleState(props) {
   const id = viewID;
 
   const viewData = async () => {
-    const response = await fetch(`${base_url}/getRole/${id}`, {
+    const response = await fetch(`${baseURL}/getRole/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -206,7 +206,7 @@ function RoleState(props) {
   const editRole = async () => {
     const { roleName, role } = inputData;
 
-    const response = await fetch(`${base_url}/updateRole/${editid}`, {
+    const response = await fetch(`${baseURL}/updateRole/${editid}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -247,7 +247,7 @@ function RoleState(props) {
   const deleteid = deleteID;
 
   const deleteRole = async () => {
-    const response = await fetch(`${base_url}/deleteRole/${deleteid}`, {
+    const response = await fetch(`${baseURL}/deleteRole/${deleteid}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
