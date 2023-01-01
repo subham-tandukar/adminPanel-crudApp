@@ -3,10 +3,11 @@ import RoleContext from "./roleContext";
 import $ from "jquery";
 import { toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
-import UserContext from "../note context folder/noteContext";
+// import UserContext from "../note context folder/noteContext";
+import NoteContext from "../note context folder/noteContext";
 
 function RoleState(props) {
-  const { base_url } = useContext(UserContext);
+  const { base_url } = useContext(NoteContext);
   const [checked, setChecked] = useState(false);
   const initialValue = {
     roleName: "",

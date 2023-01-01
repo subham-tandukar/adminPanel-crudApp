@@ -5,9 +5,10 @@ import { toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
 import UserContext from "../note context folder/noteContext";
 import RoleContext from "../role context folder/roleContext";
+import NoteContext from "../note context folder/noteContext";
 
 function PermissionState(props) {
-  const { base_url } = useContext(UserContext);
+  const { base_url } = useContext(NoteContext);
   const initialRoleValue = {
     roleName: "",
     closeChecked: "",

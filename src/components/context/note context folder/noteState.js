@@ -7,8 +7,9 @@ import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
 function NoteState(props) {
   // const base_url = "https://adminpanel-crudapp.herokuapp.com";
   // const base_url = "https://role-and-permission.herokuapp.com";
+  const base_url = "https://web-production-cff8.up.railway.app";
 
-  const base_url = "http://localhost:8003";
+  // const base_url = "http://localhost:8003";
   const initialValue = {
     title: "",
     description: "",

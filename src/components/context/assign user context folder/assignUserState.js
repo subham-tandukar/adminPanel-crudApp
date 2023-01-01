@@ -3,11 +3,11 @@ import AssignUserContext from "./assignUserContext";
 import $ from "jquery";
 import { ToastContainer, toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
-import UserContext from "../note context folder/noteContext";
+import NoteContext from "../note context folder/noteContext";
 
 function AssignUserState(props) {
   // const base_url = "https://adminpanel-crudapp.herokuapp.com";
-  const { base_url } = useContext(UserContext);
+  const { base_url } = useContext(NoteContext);
   const [userDetails, setUserDetails] = useState("");
   const initialValue = {
     name: "",
