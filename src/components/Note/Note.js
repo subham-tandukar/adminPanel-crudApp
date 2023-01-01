@@ -65,6 +65,7 @@ const Note = () => {
     {
       name: "Description",
       // grow: 0,
+      minWidth: "200px",
       center: true,
       sortable: true,
       selector: (row) => row.description,
@@ -73,6 +74,7 @@ const Note = () => {
     {
       name: "Action",
       // grow: 0,
+      minWidth: "200px",
       center: true,
       selector: (row) => {
         return (

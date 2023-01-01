@@ -75,13 +75,31 @@ const Slideshow = () => {
             >
               <ul className="uk-slideshow-items">
                 <li>
-                  <img src={img1} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-top-right">
+                    <img src={img1} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img1} alt="" className="slider-img" />
+                  </div>
                 </li>
                 <li>
-                  <img src={img2} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-bottom-left">
+                    <img src={img2} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img2} alt="" className="slider-img" />
+                  </div>
                 </li>
                 <li>
-                  <img src={img3} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-center-left">
+                    <img src={img3} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img3} alt="" className="slider-img" />
+                  </div>
                 </li>
               </ul>
 
@@ -107,13 +125,31 @@ const Slideshow = () => {
             >
               <ul className="uk-slideshow-items">
                 <li>
-                  <img src={img1} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-top-right">
+                    <img src={img1} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img1} alt="" className="slider-img" />
+                  </div>
                 </li>
                 <li>
-                  <img src={img2} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-bottom-left">
+                    <img src={img2} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img2} alt="" className="slider-img" />
+                  </div>
                 </li>
                 <li>
-                  <img src={img3} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-center-left">
+                    <img src={img3} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img3} alt="" className="slider-img" />
+                  </div>
                 </li>
               </ul>
 
@@ -139,13 +175,31 @@ const Slideshow = () => {
             >
               <ul className="uk-slideshow-items">
                 <li>
-                  <img src={img1} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-top-right">
+                    <img src={img1} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img1} alt="" className="slider-img" />
+                  </div>
                 </li>
                 <li>
-                  <img src={img2} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-bottom-left">
+                    <img src={img2} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img2} alt="" className="slider-img" />
+                  </div>
                 </li>
                 <li>
-                  <img src={img3} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-center-left">
+                    <img src={img3} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img3} alt="" className="slider-img" />
+                  </div>
                 </li>
               </ul>
 
@@ -171,13 +225,31 @@ const Slideshow = () => {
             >
               <ul className="uk-slideshow-items">
                 <li>
-                  <img src={img1} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-top-right">
+                    <img src={img1} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img1} alt="" className="slider-img" />
+                  </div>
                 </li>
                 <li>
-                  <img src={img2} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-bottom-left">
+                    <img src={img2} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img2} alt="" className="slider-img" />
+                  </div>
                 </li>
                 <li>
-                  <img src={img3} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-center-left">
+                    <img src={img3} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img3} alt="" className="slider-img" />
+                  </div>
                 </li>
               </ul>
 

@@ -66,6 +66,7 @@ const AssignUser = () => {
     {
       name: "Email",
       // grow: 0,
+      minWidth: "200px",
       center: true,
       sortable: true,
       selector: (row) => row.email,
@@ -81,6 +82,7 @@ const AssignUser = () => {
     {
       name: "Action",
       // grow: 0,
+      minWidth: "200px",
       center: true,
       selector: (row) => {
         return (

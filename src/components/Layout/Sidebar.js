@@ -7,6 +7,7 @@ import RoleContext from "../context/role context folder/roleContext";
 import PermissionContext from "../context/permission context folder/permissionContext";
 import UserContext from "../context/note context folder/noteContext";
 import AssignUserContext from "../context/assign user context folder/assignUserContext";
+import UsewindowDimension from "../hooks/UsewindowDimension";
 
 const Sidebar = ({ userDetails, handleMobHam }) => {
   const { roleData } = useContext(RoleContext);
@@ -80,8 +81,13 @@ const Sidebar = ({ userDetails, handleMobHam }) => {
   const handleDropdown = () => {
     $("#dropdown-active").addClass("active");
   };
+
+  const { width } = UsewindowDimension();
   const handleActive = () => {
     $("#dropdown-active").removeClass("active");
+    if (width < 960) {
+      handleMobHam();
+    }
   };
 
   return (

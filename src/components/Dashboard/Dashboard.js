@@ -36,7 +36,7 @@ const Dashboard = () => {
                   <a>
                     <img src={img1} width="100" height="67" alt="" />
                   </a>
-                  <h2>Hello</h2>
+                  {/* <h2>Hello</h2> */}
                 </div>
               </li>
               <li uk-slideshow-item="1">
@@ -44,7 +44,7 @@ const Dashboard = () => {
                   <a>
                     <img src={img2} width="100" height="67" alt="" />
                   </a>
-                  <h2>Hiii</h2>
+                  {/* <h2>Hiii</h2> */}
                 </div>
               </li>
               <li uk-slideshow-item="2">
@@ -52,7 +52,7 @@ const Dashboard = () => {
                   <a>
                     <img src={img3} width="100" height="67" alt="" />
                   </a>
-                  <h2>byeeee</h2>
+                  {/* <h2>byeeee</h2> */}
                 </div>
               </li>
             </ul>

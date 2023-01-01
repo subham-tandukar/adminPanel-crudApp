@@ -59,7 +59,7 @@ const Role = () => {
     {
       name: "Action",
       center: true,
-      width: "200px",
+      minWidth: "200px",
       selector: (row) => {
         return (
           <>

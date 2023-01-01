@@ -773,19 +773,6 @@ form .form-wrapper label {
   left: 0;
 }
 
-.uk-thumbnav .uk-active {
-  transform: scale(1.3);
-}
-.uk-thumbnav .uk-active h2 {
-  display: block;
-  position: absolute;
-  right: 0;
-}
-.uk-thumbnav h2 {
-  display: none;
-  color: #fff;
-}
-
 @media (max-width: 960px) {
   .popup-bg .popup {
     width: 60%;
