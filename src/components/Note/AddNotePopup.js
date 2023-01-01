@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import $ from "jquery";
 import { GrFormClose } from "react-icons/gr";
-import UserContext from "../context/user context folder/userContext";
+import NoteContext from "../context/note context folder/noteContext";
 
-const AddUserPopup = () => {
+const AddNotePopup = () => {
   const {
     inputData,
     setInputData,
@@ -12,8 +12,8 @@ const AddUserPopup = () => {
     setFormError,
     isSubmit,
     setIsSubmit,
-    addUser,
-  } = useContext(UserContext);
+    addNote,
+  } = useContext(NoteContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,8 +21,8 @@ const AddUserPopup = () => {
   };
 
   const handleClose = () => {
-    $(".add-user-bg").fadeOut(300);
-    $(".add-user").slideUp(500);
+    $(".add-note-bg").fadeOut(300);
+    $(".add-note").slideUp(500);
     setInputData(initialValue);
     setFormError({});
     setIsSubmit(false);
@@ -34,23 +34,12 @@ const AddUserPopup = () => {
     const digits = /^\d{10}$/;
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-    if (!values.name) {
-      errors.name = "Required";
+    if (!values.title) {
+      errors.title = "Required";
     }
-    if (!values.address) {
-      errors.address = "Required";
+    if (!values.description) {
+      errors.description = "Required";
     }
-    if (!regex.test(values.email)) {
-      errors.email = "This is not a valid email format";
-    }
-    if (!values.number) {
-      errors.number = "Required";
-    } else if (!numv.test(values.number)) {
-      errors.number = "Must be digits";
-    } else if (!digits.test(values.number)) {
-      errors.number = "Must be 10 digits";
-    }
-
     return errors;
   };
 
@@ -62,17 +51,17 @@ const AddUserPopup = () => {
 
   useEffect(() => {
     if (Object.keys(formError).length === 0 && isSubmit) {
-      addUser();
+      addNote();
       setIsSubmit(false);
     }
   }, [formError]);
 
   return (
     <>
-      <section className="popup-bg add-user-bg">
-        <div className="popup add-user">
+      <section className="popup-bg add-note-bg">
+        <div className="popup add-note">
           <div className="popup-head">
-            <h4>Add User</h4>
+            <h4>Add Note</h4>
             <div className="close" onClick={handleClose}>
               <GrFormClose size="2rem" color="#fff" />
             </div>
@@ -83,55 +72,29 @@ const AddUserPopup = () => {
               <div className="uk-grid uk-child-width-1-2@s">
                 <div className="form-wrapper">
                   <label htmlFor="">
-                    Name<sup className="sup-col">*</sup>
+                    Title<sup className="sup-col">*</sup>
                   </label>
                   <input
                     type="text"
                     className="uk-input"
-                    name="name"
+                    name="title"
                     onChange={handleChange}
-                    value={inputData.name}
+                    value={inputData.title}
                   />
-                  <p className="errormsg">{formError.name}</p>
+                  <p className="errormsg">{formError.title}</p>
                 </div>
                 <div className="form-wrapper">
                   <label htmlFor="">
-                    Email<sup className="sup-col">*</sup>
-                  </label>
-                  <input
-                    type="email"
-                    className="uk-input"
-                    name="email"
-                    onChange={handleChange}
-                    value={inputData.email}
-                  />
-                  <p className="errormsg ">{formError.email}</p>
-                </div>
-                <div className="form-wrapper">
-                  <label htmlFor="">
-                    Number<sup className="sup-col">*</sup>
+                    Description<sup className="sup-col">*</sup>
                   </label>
                   <input
                     type="text"
                     className="uk-input"
-                    name="number"
+                    name="description"
                     onChange={handleChange}
-                    value={inputData.number}
+                    value={inputData.description}
                   />
-                  <p className="errormsg ">{formError.number}</p>
-                </div>
-                <div className="form-wrapper">
-                  <label htmlFor="">
-                    Address<sup className="sup-col">*</sup>
-                  </label>
-                  <input
-                    type="text"
-                    className="uk-input"
-                    name="address"
-                    onChange={handleChange}
-                    value={inputData.address}
-                  />
-                  <p className="errormsg ">{formError.address}</p>
+                  <p className="errormsg">{formError.description}</p>
                 </div>
               </div>
             </form>
@@ -150,4 +113,4 @@ const AddUserPopup = () => {
   );
 };
 
-export default AddUserPopup;
+export default AddNotePopup;

@@ -5,7 +5,7 @@ import $ from "jquery";
 import { GrFormClose } from "react-icons/gr";
 import RoleContext from "../context/role context folder/roleContext";
 import PermissionContext from "../context/permission context folder/permissionContext";
-import UserContext from "../context/user context folder/userContext";
+import UserContext from "../context/note context folder/noteContext";
 
 const Sidebar = ({ userDetails, handleMobHam }) => {
   const { roleData } = useContext(RoleContext);
@@ -42,6 +42,8 @@ const Sidebar = ({ userDetails, handleMobHam }) => {
   const ROLE = roleData.filter((obj) => {
     return obj.roleName === roleName;
   });
+
+  console.log("role", ROLE);
 
   const id = $("#id").val();
 
@@ -146,13 +148,6 @@ const Sidebar = ({ userDetails, handleMobHam }) => {
           </li>
         ) : null}
 
-        {/* <li>
-          <NavLink to="/user" className="list non-active" onClick={handleActive}>
-            <i className="fas fa-user-tie"></i>
-            <span className="list-name">User</span>
-          </NavLink>
-        </li> */}
-
         {form.read ? (
           <li>
             <NavLink
@@ -245,6 +240,17 @@ const Sidebar = ({ userDetails, handleMobHam }) => {
             </NavLink>
           </li>
         ) : null}
+
+        <li>
+          <NavLink
+            to="/note"
+            className="list non-active"
+            onClick={handleActive}
+          >
+            <i className="fab fa-wpforms"></i>
+            <span className="list-name">Note</span>
+          </NavLink>
+        </li>
       </ul>
 
       {/* for mob version  */}
@@ -398,6 +404,17 @@ const Sidebar = ({ userDetails, handleMobHam }) => {
             </NavLink>
           </li>
         ) : null}
+
+        <li>
+          <NavLink
+            to="/note"
+            className="list non-active mob-ham"
+            onClick={handleActive}
+          >
+            <i className="fab fa-wpforms"></i>
+            <span className="list-name">Note</span>
+          </NavLink>
+        </li>
       </ul>
 
       {ROLE.map((elem) => {

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import logo from "../../img/logo.png";
-import UserContext from "../context/user context folder/userContext";
+import UserContext from "../context/note context folder/noteContext";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/auth-context";

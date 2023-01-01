@@ -3,37 +3,37 @@ import DataTable from "react-data-table-component";
 import { AiFillPrinter } from "react-icons/ai";
 import { BsFileEarmarkPdfFill } from "react-icons/bs";
 // import { RiFileExcel2Fill } from "react-icons/ri";
-import AddUserPopup from "./AddUserPopup";
 import $ from "jquery";
-import UserContext from "../context/user context folder/userContext";
 import { GrFormClose } from "react-icons/gr";
-import EditUserPopup from "./EditUserPopup";
-import ViewUserPopup from "./ViewUserPopup";
-import DeleteUserPopup from "./DeleteUserPopup";
 import { ToastContainer } from "react-toastify";
 import ReactToPrint from "react-to-print";
 // import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import "../../../node_modules/react-toastify/dist/ReactToastify.css";
 import Pdf from "react-to-pdf";
+import AddNotePopup from "./AddNotePopup";
+import ViewNotePopup from "./ViewNotePopup";
+import EditNotePopup from "./EditNotePopup";
+import DeleteNotePopup from "./DeleteNotePopup";
+import NoteContext from "../context/note context folder/noteContext";
 
-const User = () => {
+const Note = () => {
   const {
     setInputData,
     initialValue,
-    userData,
+    noteData,
     handleEdit,
     handleView,
     handleDelete,
     loading,
-  } = useContext(UserContext);
+  } = useContext(NoteContext);
 
   const componentRef = useRef();
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const user = userData.filter(
+  const note = noteData.filter(
     (item) =>
-      item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      item.title && item.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleClear = () => {
@@ -41,8 +41,8 @@ const User = () => {
   };
 
   const handleAdd = () => {
-    $(".add-user-bg").fadeIn(300);
-    $(".add-user").slideDown(500);
+    $(".add-note-bg").fadeIn(300);
+    $(".add-note").slideDown(500);
     setInputData(initialValue);
   };
 
@@ -55,34 +55,21 @@ const User = () => {
       cell: (row, index) => index + 1,
     },
     {
-      name: "Name",
+      name: "Title",
       // grow: 2,
-      width: "150px",
+      // width: "150px",
       sortable: true,
       filterable: true,
-      selector: (row) => row.name,
+      selector: (row) => row.title,
     },
     {
-      name: "Email",
+      name: "Description",
       // grow: 0,
       center: true,
       sortable: true,
-      selector: (row) => row.email,
+      selector: (row) => row.description,
     },
-    {
-      name: "Number",
-      // grow: 0,
-      center: true,
-      sortable: true,
-      selector: (row) => row.number,
-    },
-    {
-      name: "Address",
-      // grow: 0,
-      center: true,
-      sortable: true,
-      selector: (row) => row.address,
-    },
+
     {
       name: "Action",
       // grow: 0,
@@ -131,12 +118,12 @@ const User = () => {
       />
       <div className=" title uk-flex uk-flex-between uk-flex-middle uk-flex-wrap">
         <h4>
-          <i className="fas fa-user-tie uk-margin-small-right"></i>
-          User
+          <i className="fab fa-wpforms uk-margin-small-right"></i>
+          Note
         </h4>
         <div>
           <button className="uk-button" onClick={handleAdd}>
-            + Add User
+            + Add Note
           </button>
         </div>
       </div>
@@ -145,7 +132,7 @@ const User = () => {
         <div className="content_wrapper" ref={ref}>
           <DataTable
             columns={columns}
-            data={user}
+            data={note}
             // customStyles={customStyles}
             pagination
             fixedHeader
@@ -238,12 +225,12 @@ const User = () => {
         </div>
       </div>
 
-      <AddUserPopup />
-      <ViewUserPopup />
-      <EditUserPopup />
-      <DeleteUserPopup />
+      <AddNotePopup />
+      <ViewNotePopup />
+      <EditNotePopup />
+      <DeleteNotePopup />
     </>
   );
 };
 
-export default User;
+export default Note;

@@ -3,7 +3,7 @@ import RoleContext from "./roleContext";
 import $ from "jquery";
 import { toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
-import UserContext from "../user context folder/userContext";
+import UserContext from "../note context folder/noteContext";
 
 function RoleState(props) {
   const { base_url } = useContext(UserContext);
@@ -150,7 +150,6 @@ function RoleState(props) {
   };
 
   console.log("roledata", roleData);
-
 
   // view role
   const [viewID, setViewId] = useState("");

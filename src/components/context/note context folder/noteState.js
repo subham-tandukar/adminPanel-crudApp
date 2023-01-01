@@ -1,19 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import UserContext from "./userContext";
+import NoteContext from "./noteContext";
 import $ from "jquery";
 import { ToastContainer, toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
 
-function UserState(props) {
+function NoteState(props) {
   // const base_url = "https://adminpanel-crudapp.herokuapp.com";
   // const base_url = "https://role-and-permission.herokuapp.com";
 
   const base_url = "http://localhost:8003";
   const initialValue = {
-    name: "",
-    email: "",
-    number: "",
-    address: "",
+    title: "",
+    description: "",
   };
 
   const [inputData, setInputData] = useState(initialValue);
@@ -23,16 +21,16 @@ function UserState(props) {
   const [isSubmit, setIsSubmit] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const [userData, setUserData] = useState([]);
-  console.log("get user data", userData);
+  const [noteData, setNoteData] = useState([]);
+  console.log("get Note data", noteData);
 
-  // const addUser = () => {
+  // const addNote = () => {
   //   const dataForm = {
   //     name: inputData.name,
   //     email: inputData.email,
   //     number: inputData.number,
   //     address: inputData.address,
-  //     FetchURL: "http://localhost:8003/addUser",
+  //     FetchURL: "http://localhost:8003/addNote",
   //     Type: "POST",
   //   };
   //   console.log(dataForm);
@@ -48,45 +46,43 @@ function UserState(props) {
   //   });
   // };
 
-  // add user
-  const addUser = async () => {
-    const { name, email, number, address } = inputData;
+  // add note
+  const addNote = async () => {
+    const { title, description } = inputData;
 
-    const response = await fetch(`${base_url}/addUser`, {
+    const response = await fetch(`${base_url}/addNote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name,
-        email,
-        number,
-        address,
+        title,
+        description,
       }),
     });
     const data = await response.json();
-    console.log("addUser", data);
+    console.log("addNote", data);
 
     if (response.status === 422 || !data) {
       toast.error(data.message, {
         theme: "light",
       });
     } else {
-      toast.success("User added sucessfully", {
+      toast.success("Note added sucessfully", {
         theme: "light",
       });
       setReload(!reload);
-      $(".add-user-bg").fadeOut(300);
-      $(".add-user").slideUp(500);
+      $(".add-note-bg").fadeOut(300);
+      $(".add-note").slideUp(500);
     }
   };
 
-  // get user
+  // get Note
   useEffect(() => {
-    getUserData();
+    getNoteData();
   }, [reload]);
 
-  const getUserData = async (e) => {
+  const getNoteData = async (e) => {
     const response = await fetch(`${base_url}/getData`, {
       method: "GET",
       headers: {
@@ -99,26 +95,26 @@ function UserState(props) {
     if (response.status === 422 || !data) {
       console.log("error");
     } else {
-      setUserData(data);
+      setNoteData(data);
       setLoading(false);
     }
   };
 
-  // view user
+  // view Note
 
   const [viewID, setViewId] = useState("");
   const [view, setView] = useState([]);
 
   const handleView = (data) => {
     setViewId(data._id);
-    $(".view-user-bg").fadeIn(300);
-    $(".view-user").slideDown(500);
+    $(".view-note-bg").fadeIn(300);
+    $(".view-note").slideDown(500);
   };
 
   const id = viewID;
 
   const viewData = async () => {
-    const response = await fetch(`${base_url}/getUser/${id}`, {
+    const response = await fetch(`${base_url}/getNote/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -139,73 +135,65 @@ function UserState(props) {
     viewData();
   }, [id, reload]);
 
-  // edit user
+  // edit Note
   const [perEditSubmit, setPerEditSubmit] = useState(false);
   const [perID, setPerId] = useState(null);
-  const [userEdit, setUserEdit] = useState("");
 
   const handleEdit = (data) => {
     setPerId(data._id);
-    setUserEdit(data.name);
-    $(".edit-user-bg").fadeIn(300);
-    $(".edit-user").slideDown(500);
+    $(".edit-note-bg").fadeIn(300);
+    $(".edit-note").slideDown(500);
     setInputData({
-      name: data.name,
-      email: data.email,
-      number: data.number,
-      address: data.address,
+      title: data.title,
+      description: data.description,
     });
   };
 
   const editid = perID;
 
-  const editUser = async () => {
-    const { name, email, number, address } = inputData;
+  const editNote = async () => {
+    const { title, description } = inputData;
 
-    const response = await fetch(`${base_url}/updateUser/${editid}`, {
+    const response = await fetch(`${base_url}/updateNote/${editid}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name,
-        email,
-        number,
-        address,
+        title,
+        description,
       }),
     });
     const data = await response.json();
     console.log("editData", data);
 
     if (response.status === 422 || !data) {
-      toast.error("This email is already used", {
+      toast.error(data.message, {
         theme: "light",
       });
     } else {
-      toast.success(`User ${userEdit} updated sucessfully`, {
+      toast.success("Note updated sucessfully", {
         theme: "light",
       });
       setReload(!reload);
-      $(".edit-user-bg").fadeOut(300);
-      $(".edit-user").slideUp(500);
+      $(".edit-note-bg").fadeOut(300);
+      $(".edit-note").slideUp(500);
     }
   };
 
-  // delete user
+  // delete note
   const [deleteID, setDeleteId] = useState(null);
-  const [userDelete, setUserDelete] = useState("");
 
   const handleDelete = (data) => {
     setDeleteId(data._id);
-    setUserDelete(data.name);
-    $(".delete-user-bg").fadeIn(300);
-    $(".delete-user").slideDown(500);
+    $(".delete-note-bg").fadeIn(300);
+    $(".delete-note").slideDown(500);
   };
 
   const deleteid = deleteID;
 
-  const deleteUser = async () => {
-    const response = await fetch(`${base_url}/deleteUser/${deleteid}`, {
+  const deleteNote = async () => {
+    const response = await fetch(`${base_url}/deleteNote/${deleteid}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -219,18 +207,18 @@ function UserState(props) {
         theme: "light",
       });
     } else {
-      toast.success(`User ${userDelete} deleted sucessfully`, {
+      toast.success("Note deleted sucessfully", {
         theme: "light",
       });
       setReload(!reload);
-      $(".delete-user-bg").fadeOut(300);
-      $(".delete-user").slideUp(500);
-      getUserData();
+      $(".delete-note-bg").fadeOut(300);
+      $(".delete-note").slideUp(500);
+      getNoteData();
     }
   };
 
   return (
-    <UserContext.Provider
+    <NoteContext.Provider
       value={{
         inputData,
         setInputData,
@@ -239,8 +227,8 @@ function UserState(props) {
         setFormError,
         isSubmit,
         setIsSubmit,
-        addUser,
-        userData,
+        addNote,
+        noteData,
         setReload,
         reload,
         perEditSubmit,
@@ -249,15 +237,15 @@ function UserState(props) {
         handleView,
         view,
         loading,
-        editUser,
+        editNote,
         handleDelete,
-        deleteUser,
+        deleteNote,
         base_url,
       }}
     >
       {props.children}
-    </UserContext.Provider>
+    </NoteContext.Provider>
   );
 }
 
-export default UserState;
+export default NoteState;

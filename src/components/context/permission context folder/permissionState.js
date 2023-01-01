@@ -3,7 +3,7 @@ import PermissionContext from "./permissionContext";
 import $ from "jquery";
 import { toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
-import UserContext from "../user context folder/userContext";
+import UserContext from "../note context folder/noteContext";
 import RoleContext from "../role context folder/roleContext";
 
 function PermissionState(props) {

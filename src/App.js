@@ -9,8 +9,6 @@ import Filter2 from "./components/Filter/Filter2";
 import Filter3 from "./components/Filter/Filter3";
 import Slideshow from "./components/Slideshow/Slideshow";
 import Sortable from "./components/Sortable/Sortable";
-import User from "./components/User/User";
-import UserState from "./components/context/user context folder/userState";
 import RoleState from "./components/context/role context folder/roleState";
 import Role from "./components/Role/Role";
 import Permission from "./components/permission/Permission";
@@ -20,7 +18,8 @@ import AssignUser from "./components/Assign User/AssignUser";
 import Login from "./components/Login/Login";
 import AuthContext from "./components/context/auth-context";
 import ErrorPage from "./components/ErrorPage";
-import PermissionContext from "./components/context/permission context folder/permissionContext";
+import Note from "./components/Note/Note";
+import NoteState from "./components/context/note context folder/noteState";
 
 const App = () => {
   const { User } = useContext(AuthContext);
@@ -43,7 +42,7 @@ const App = () => {
       <div className="app">
         {User && (
           <>
-            <UserState>
+            <NoteState>
               <RoleState>
                 <PermissionState>
                   <AssignUserState>
@@ -59,6 +58,7 @@ const App = () => {
                         <Route path="/filter3" element={<Filter3 />} />
                         <Route path="/sortable" element={<Sortable />} />
                         <Route path="/slideshow" element={<Slideshow />} />
+                        <Route path="/note" element={<Note />} />
                         {/* 
                         {role.read ? (
                           <Route path="/role" element={<Role />} />
@@ -117,7 +117,7 @@ const App = () => {
                   </AssignUserState>
                 </PermissionState>
               </RoleState>
-            </UserState>
+            </NoteState>
           </>
         )}
       </div>

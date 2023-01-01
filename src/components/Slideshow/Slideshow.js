@@ -16,22 +16,40 @@ const Slideshow = () => {
       <div className="content_wrapper">
         <div className="uk-child-width-1-2@m uk-grid">
           <div>
-            <div className="uk-h3">Slide</div>
+            <div className="uk-h3">Fade</div>
 
             <div
               className="uk-position-relative uk-visible-toggle uk-light  uk-margin-medium-bottom uk-margin-medium-bottom"
               tabIndex="-1"
-              uk-slideshow="true"
+              uk-slideshow="animation: fade"
             >
               <ul className="uk-slideshow-items">
                 <li>
-                  <img src={img1} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-top-right">
+                    <img src={img1} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img1} alt="" className="slider-img" />
+                  </div>
                 </li>
                 <li>
-                  <img src={img2} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-bottom-left">
+                    <img src={img2} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img2} alt="" className="slider-img" />
+                  </div>
                 </li>
                 <li>
-                  <img src={img3} alt="" uk-cover="true" />
+                  <div className="hero-img uk-position-cover uk-animation-kenburns uk-animation-reverse uk-transform-origin-center-left">
+                    <img src={img3} alt="" uk-cover="true" />
+                    <div className="img-overlay"></div>
+                  </div>
+                  <div>
+                    <img src={img3} alt="" className="slider-img" />
+                  </div>
                 </li>
               </ul>
 
@@ -48,12 +66,12 @@ const Slideshow = () => {
             </div>
           </div>
           <div>
-            <div className="uk-h3">Fade</div>
+            <div className="uk-h3">Slide</div>
 
             <div
               className="uk-position-relative uk-visible-toggle uk-light  uk-margin-medium-bottom"
               tabIndex="-1"
-              uk-slideshow="animation: fade"
+              uk-slideshow="true"
             >
               <ul className="uk-slideshow-items">
                 <li>

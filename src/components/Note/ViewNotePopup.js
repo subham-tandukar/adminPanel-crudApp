@@ -1,46 +1,36 @@
 import React, { useContext } from "react";
 import $ from "jquery";
 import { GrFormClose } from "react-icons/gr";
-import UserContext from "../context/user context folder/userContext";
 import Loading from "../Loading/Loading";
+import NoteContext from "../context/note context folder/noteContext";
 
-const ViewUserPopup = () => {
-  const { view, loading } = useContext(UserContext);
+const ViewNotePopup = () => {
+  const { view, loading } = useContext(NoteContext);
 
   const handleClose = () => {
-    $(".view-user-bg").fadeOut(300);
-    $(".view-user").slideUp(500);
+    $(".view-note-bg").fadeOut(300);
+    $(".view-note").slideUp(500);
   };
 
   const viewList = [
     {
       id: 1,
-      title: "Name",
-      body: view.name,
+      title: "Title",
+      body: view.title,
     },
     {
       id: 2,
-      title: "Email",
-      body: view.email,
-    },
-    {
-      id: 3,
-      title: "Number",
-      body: view.number,
-    },
-    {
-      id: 4,
-      title: "Address",
-      body: view.address,
+      title: "Description",
+      body: view.description,
     },
   ];
 
   return (
     <>
-      <section className="popup-bg view-user-bg">
-        <div className="popup view-user">
+      <section className="popup-bg view-note-bg">
+        <div className="popup view-note">
           <div className="popup-head">
-            <h4>View User</h4>
+            <h4>View Note</h4>
             <div className="close" onClick={handleClose}>
               <GrFormClose size="2rem" color="#fff" />
             </div>
@@ -92,4 +82,4 @@ const ViewUserPopup = () => {
   );
 };
 
-export default ViewUserPopup;
+export default ViewNotePopup;
