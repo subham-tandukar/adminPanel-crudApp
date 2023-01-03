@@ -31,29 +31,27 @@ h5 {
 }
 
 // <----- basic css starts ----->
-.width {
-  width: 250px;
-  border-right: 1px solid $border;
-}
-
 .max-width {
-  padding-left: 250px !important;
+  // width: calc(100% - 250px) !important;
+  padding-left: 60px !important;
+  // padding-left: 250px !important;
 }
-
 .nav-width {
-  width: calc(100% - 250px) !important;
+  width: calc(100% - 60px) !important;
+  // width: calc(100% - 250px) !important;
 }
 
 .d-block {
-  display: none !important;
-}
-
-.opacity {
   display: block !important;
+  // display: none !important;
 }
-
+.opacity {
+  display: none !important;
+  // display: block !important;
+}
 .visible {
-  opacity: 0 !important;
+  // opacity: 0 !important;
+  opacity: 1 !important;
 }
 
 .active,
@@ -204,26 +202,27 @@ h5 {
   transform: translate(0, 5px);
 }
 
-.changebtn-2 .bar-1 {
-  transform-origin: 0 0;
-  transform: translate(-1px, 0) rotate(-45deg);
-  left: auto;
-}
+// .changebtn-2 .bar-1 {
+//   transform-origin: 0 0;
+//   transform: translate(-1px, 0) rotate(-45deg);
+//   left: auto;
+// }
 
-.changebtn-2 .bar-2 {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
+// .changebtn-2 .bar-2 {
+//   transform: translate(-50%, -50%) rotate(45deg);
+// }
 
-.changebtn-2 .bar-3 {
-  transform-origin: 100% 0;
-  transform: translate(-100%, -50%) rotate(-45deg);
-  width: 50%;
-}
+// .changebtn-2 .bar-3 {
+//   transform-origin: 100% 0;
+//   transform: translate(-100%, -50%) rotate(-45deg);
+//   width: 50%;
+// }
 // <----- ham menu css ends ----->
 
 // <----- sidebar css starts ----->
 aside {
-  width: 60px;
+  width: 250px;
+  // width: 60px;
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
@@ -246,7 +245,7 @@ aside .logo {
   font-weight: bold;
   font-size: 17px;
   margin-left: 1rem;
-  display: none;
+  // display: none;
 }
 aside {
   .mob-close-icon {
@@ -286,7 +285,7 @@ aside .uk-list .list:hover {
 }
 aside .uk-list .list .list-name {
   transition: all 0.3s ease-in-out;
-  display: none;
+  // display: none;
 }
 aside .uk-list .list .dropicon {
   position: absolute;
@@ -368,7 +367,8 @@ article .nav {
   border-bottom: 1px solid $border;
   padding: 1rem;
   position: fixed;
-  width: calc(100% - 60px);
+  width: calc(100% - 250px);
+  // width: calc(100% - 60px);
   background: $navbg;
   z-index: 1;
   transition: all 0.3s ease-in-out;
@@ -405,7 +405,8 @@ article .nav i {
 // <----- main content css starts ----->
 article {
   width: 100%;
-  padding-left: 60px;
+  // padding-left: 60px;
+  padding-left: 250px;
   transition: all 0.3s ease-in-out;
   background: #e7e7e7;
   position: relative;
@@ -505,6 +506,7 @@ article .title h4 {
 .rdt_TableCell {
   border-left: 1px solid $border;
   justify-content: flex-start !important;
+  padding: 0.5rem 0;
 }
 .rdt_TableCell:first-child {
   justify-content: center !important;
@@ -536,11 +538,15 @@ article .title h4 {
   border: 1px solid $border;
   padding-top: 5px;
   padding-bottom: 5px;
-  margin-right: 1rem;
-  margin-top: 0.5rem;
+  // margin-right: 1rem;
+  // margin-top: 0.5rem;
 }
 .filter-option {
   position: relative;
+
+  label {
+    font-size: 12px;
+  }
 
   .uk-input {
     padding-right: 1.5rem;
@@ -548,7 +554,7 @@ article .title h4 {
   .clear {
     cursor: pointer;
     position: absolute;
-    top: 50%;
+    top: 70%;
     transform: translateY(-50%);
     right: 0;
 
@@ -565,6 +571,24 @@ article .title h4 {
 
 :focus-visible {
   outline: 1px solid transparent !important;
+}
+
+.pending,
+.success,
+.failed {
+  border-radius: 300px;
+  padding: 0.2rem 1rem;
+  display: block;
+  color: #fff;
+}
+.pending {
+  background: $blue;
+}
+.success {
+  background: #198754;
+}
+.failed {
+  background: $red;
 }
 
 .fa-edit {

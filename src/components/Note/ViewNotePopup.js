@@ -23,6 +23,18 @@ const ViewNotePopup = () => {
       title: "Description",
       body: view.description,
     },
+    {
+      id: 3,
+      title: "Status",
+      body:
+        view.noteStatus === 1 ? (
+          <span>Pending</span>
+        ) : view.noteStatus === 2 ? (
+          <span>Success</span>
+        ) : (
+          <span>Failed</span>
+        ),
+    },
   ];
 
   return (

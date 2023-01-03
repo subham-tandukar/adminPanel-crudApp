@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
 import AuthContext from "../auth-context";
 import AssignUserContext from "../assign user context folder/assignUserContext";
+import { Fetchdata } from "../../hooks/getData";
 
 function NoteState(props) {
   // const baseURL = "https://adminpanel-crudapp.herokuapp.com";
@@ -16,6 +17,7 @@ function NoteState(props) {
   const initialValue = {
     title: "",
     description: "",
+    noteStatus: "",
   };
 
   const [inputData, setInputData] = useState(initialValue);
@@ -26,33 +28,38 @@ function NoteState(props) {
   const [loading, setLoading] = useState(true);
 
   const [noteData, setNoteData] = useState([]);
+  const [originalList, setOriginalList] = useState(null);
   console.log("get Note data", noteData);
 
+  // add note
   // const addNote = () => {
   //   const dataForm = {
-  //     name: inputData.name,
-  //     email: inputData.email,
-  //     number: inputData.number,
-  //     address: inputData.address,
-  //     FetchURL: "http://localhost:8003/addNote",
+  //     title: inputData.title,
+  //     description: inputData.description,
+  //     noteStatus: inputData.noteStatus,
+  //     FetchURL: `${baseURL}/addNote`,
   //     Type: "POST",
   //   };
   //   console.log(dataForm);
   //   Fetchdata(dataForm).then(function (result) {
   //     console.log("result", result);
-  //     if (result.status === 422) {
-  //       alert("error");
+  //     if (result.StatusCode === 200) {
+  //       toast.success("Note added sucessfully", {
+  //         theme: "light",
+  //       });
+  //       setReload(!reload);
+  //       $(".add-note-bg").fadeOut(300);
+  //       $(".add-note").slideUp(500);
   //     } else {
-  //       alert("mdata added");
-  //       $(".popup-bg").fadeOut(300);
-  //       $(".popup").slideUp(600);
+  //       toast.error(result.Message, {
+  //         theme: "light",
+  //       });
   //     }
   //   });
   // };
 
-  // add note
   const addNote = async () => {
-    const { title, description } = inputData;
+    const { title, description, noteStatus } = inputData;
 
     const response = await fetch(`${baseURL}/addNote`, {
       method: "POST",
@@ -62,6 +69,7 @@ function NoteState(props) {
       body: JSON.stringify({
         title,
         description,
+        noteStatus,
       }),
     });
     const data = await response.json();
@@ -82,27 +90,54 @@ function NoteState(props) {
   };
 
   // get Note
+
+  const [chooseStatus, setChooseStatus] = useState("");
+
   useEffect(() => {
     getNoteData();
-  }, [reload]);
+  }, [reload, chooseStatus]);
 
-  const getNoteData = async (e) => {
-    const response = await fetch(`${baseURL}/getData`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+  const getNoteData = () => {
+    const dataForm = {
+      FetchURL: `${baseURL}/getNoteData?noteStatus=${chooseStatus}`,
+      Type: "GET",
+    };
+
+    Fetchdata(dataForm).then(function (result) {
+      console.log("result", result);
+      if (result.StatusCode === 200) {
+        const postResult = result.NoteData ? result.NoteData : "";
+        setNoteData(postResult);
+        setOriginalList(postResult);
+        setLoading(false);
+      } else {
+        setNoteData([]);
+        setLoading(false);
+      }
     });
-    const data = await response.json();
-    console.log("data", data);
-
-    if (response.status === 422 || !data) {
-      console.log("error");
-    } else {
-      setNoteData(data);
-      setLoading(false);
-    }
   };
+
+  // const getNoteData = async (e) => {
+  //   const response = await fetch(
+  //     `${baseURL}/getNoteData?noteStatus=${chooseStatus}`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     }
+  //   );
+  //   const data = await response.json();
+  //   console.log("data", data);
+
+  //   if (response.status === 422 || !data) {
+  //     console.log("error");
+  //   } else {
+  //     setNoteData(data);
+  //     setOriginalList(data);
+  //     setLoading(false);
+  //   }
+  // };
 
   // view Note
 
@@ -117,22 +152,41 @@ function NoteState(props) {
 
   const id = viewID;
 
-  const viewData = async () => {
-    const response = await fetch(`${baseURL}/getNote/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    console.log("datsassaa", data);
+  // const viewData = async () => {
+  //   const response = await fetch(`${baseURL}/getNote/${id}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   const data = await response.json();
+  //   console.log("datsassaa", data);
 
-    if (response.status === 422 || !data) {
-      console.log("error");
-    } else {
-      setView(data);
-      setLoading(false);
-    }
+  //   if (response.status === 422 || !data) {
+  //     console.log("error");
+  //   } else {
+  //     setView(data);
+  //     setLoading(false);
+  //   }
+  // };
+
+  const viewData = () => {
+    const dataForm = {
+      FetchURL: `${baseURL}/getNote/${id}`,
+      Type: "GET",
+    };
+
+    Fetchdata(dataForm).then(function (result) {
+      console.log("result", result);
+      if (result.StatusCode === 200) {
+        const postResult = result.NoteList[0] ? result.NoteList[0] : "";
+        setView(postResult);
+        setLoading(false);
+      } else {
+        setView([]);
+        setLoading(false);
+      }
+    });
   };
 
   useEffect(() => {
@@ -150,13 +204,40 @@ function NoteState(props) {
     setInputData({
       title: data.title,
       description: data.description,
+      noteStatus: data.noteStatus,
     });
   };
 
   const editid = perID;
 
+  // const editNote = () => {
+  //   const dataForm = {
+  //     title: inputData.title,
+  //     description: inputData.description,
+  //     noteStatus: inputData.noteStatus,
+  //     FetchURL: `${baseURL}/updateNote/${editid}`,
+  //     Type: "PATCH",
+  //   };
+
+  //   Fetchdata(dataForm).then(function (result) {
+  //     console.log("result", result);
+  //     if (result.StatusCode === 200) {
+  //       toast.success("Note updated sucessfully", {
+  //         theme: "light",
+  //       });
+  //       setReload(!reload);
+  //       $(".edit-note-bg").fadeOut(300);
+  //       $(".edit-note").slideUp(500);
+  //     } else {
+  //       toast.error(result.Message, {
+  //         theme: "light",
+  //       });
+  //     }
+  //   });
+  // };
+
   const editNote = async () => {
-    const { title, description } = inputData;
+    const { title, description, noteStatus } = inputData;
 
     const response = await fetch(`${baseURL}/updateNote/${editid}`, {
       method: "PATCH",
@@ -166,6 +247,7 @@ function NoteState(props) {
       body: JSON.stringify({
         title,
         description,
+        noteStatus,
       }),
     });
     const data = await response.json();
@@ -195,6 +277,30 @@ function NoteState(props) {
   };
 
   const deleteid = deleteID;
+
+  // const deleteNote = () => {
+  //   const dataForm = {
+  //     FetchURL: `${baseURL}/deleteNote/${deleteid}`,
+  //     Type: "DELETE",
+  //   };
+
+  //   Fetchdata(dataForm).then(function (result) {
+  //     console.log("result", result);
+  //     if (result.StatusCode === 200) {
+  //       toast.success("Note deleted sucessfully", {
+  //         theme: "light",
+  //       });
+  //       setReload(!reload);
+  //       $(".delete-note-bg").fadeOut(300);
+  //       $(".delete-note").slideUp(500);
+  //       getNoteData();
+  //     } else {
+  //       toast.error(result.Message, {
+  //         theme: "light",
+  //       });
+  //     }
+  //   });
+  // };
 
   const deleteNote = async () => {
     const response = await fetch(`${baseURL}/deleteNote/${deleteid}`, {
@@ -233,6 +339,7 @@ function NoteState(props) {
         setIsSubmit,
         addNote,
         noteData,
+        setNoteData,
         setReload,
         reload,
         perEditSubmit,
@@ -245,6 +352,10 @@ function NoteState(props) {
         handleDelete,
         deleteNote,
         // baseURL,
+        chooseStatus,
+        setChooseStatus,
+        originalList,
+        setOriginalList,
       }}
     >
       {props.children}

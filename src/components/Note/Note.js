@@ -21,29 +21,61 @@ const Note = () => {
     setInputData,
     initialValue,
     noteData,
+    setNoteData,
     handleEdit,
     handleView,
     handleDelete,
     loading,
+    chooseStatus,
+    setChooseStatus,
+    originalList,
   } = useContext(NoteContext);
 
   const componentRef = useRef();
-
+  const searchInput = useRef("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const note = noteData.filter(
-    (item) =>
-      item.title && item.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const note = noteData.filter(
+  //   (item) =>
+  //     item.title && item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
+
+  const searchHandler = (e) => {
+    e.preventDefault();
+    setSearchTerm(e.target.value);
+
+    const srchQuery = searchInput.current.value.toLowerCase();
+
+    if (srchQuery) {
+      let srchResult = originalList.filter((list) => {
+        return list["title"].toLowerCase().includes(srchQuery);
+      });
+
+      if (srchResult) {
+        setNoteData(srchResult);
+      } else {
+        setNoteData({});
+      }
+    } else {
+      setNoteData(originalList);
+    }
+  };
 
   const handleClear = () => {
     setSearchTerm("");
+    setNoteData(originalList);
   };
 
   const handleAdd = () => {
     $(".add-note-bg").fadeIn(300);
     $(".add-note").slideDown(500);
     setInputData(initialValue);
+  };
+
+  const handleChange = (e) => {
+    const target = e.target;
+    const value = target.value;
+    setChooseStatus(value);
   };
 
   const columns = [
@@ -59,7 +91,7 @@ const Note = () => {
       // grow: 2,
       // width: "150px",
       sortable: true,
-      filterable: true,
+      // filterable: true,
       selector: (row) => row.title,
     },
     {
@@ -70,11 +102,26 @@ const Note = () => {
       sortable: true,
       selector: (row) => row.description,
     },
+    {
+      name: "Status",
+      // grow: 0,
+      // minWidth: "200px",
+      // center: true,
+      sortable: true,
+      selector: (row) =>
+        row.noteStatus === 1 ? (
+          <span className="pending">Pending</span>
+        ) : row.noteStatus === 2 ? (
+          <span className="success">Success</span>
+        ) : (
+          <span className="failed">Failed</span>
+        ),
+    },
 
     {
       name: "Action",
       // grow: 0,
-      minWidth: "200px",
+      minWidth: "120px",
       center: true,
       selector: (row) => {
         return (
@@ -134,7 +181,7 @@ const Note = () => {
         <div className="content_wrapper" ref={ref}>
           <DataTable
             columns={columns}
-            data={note}
+            data={noteData}
             // customStyles={customStyles}
             pagination
             fixedHeader
@@ -148,18 +195,38 @@ const Note = () => {
             striped
             subHeaderComponent={
               <>
-                <div className="filter uk-flex uk-flex-wrap">
+                <div className="filter uk-flex uk-flex-wrap uk-margin-small-bottom">
+                  <div className="filter-option uk-margin-right">
+                    <label htmlFor="status">Status</label>
+                    <select
+                      class="uk-select"
+                      name="noteStatus"
+                      id="status"
+                      onChange={handleChange}
+                      value={chooseStatus}
+                    >
+                      <option disabled value="0" selected>
+                        Select Follow Status
+                      </option>
+                      <option value="">Select All</option>
+                      <option value="1">Pending</option>
+                      <option value="2">Success</option>
+                      <option value="3">Failed</option>
+                    </select>
+                  </div>
                   <div className="filter-option">
+                    <label htmlFor="search">Search</label>
                     <input
-                      // ref={searchInput}
+                      ref={searchInput}
                       type="text"
+                      id="search"
                       className="uk-input searchField"
-                      placeholder="Search"
+                      // placeholder="Search"
                       value={searchTerm}
-                      onChange={(e) => {
-                        setSearchTerm(e.target.value);
-                      }}
-                      // onChange={searchHandler}
+                      // onChange={(e) => {
+                      //   setSearchTerm(e.target.value);
+                      // }}
+                      onChange={searchHandler}
                     />
                     <div
                       className="clear"

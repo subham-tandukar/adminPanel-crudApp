@@ -20,25 +20,49 @@ const AssignUser = () => {
     setInputData,
     initialValue,
     userData,
+    setUserData,
     handleEdit,
     handleView,
     handleDelete,
     loading,
+    originalList,
   } = useContext(AssignUserContext);
 
   const { assignUser } = useContext(PermissionContext);
 
   const componentRef = useRef();
-
+  const searchInput = useRef("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const user = userData.filter(
-    (item) =>
-      item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const user = userData.filter(
+  //   (item) =>
+  //     item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
+
+  const searchHandler = (e) => {
+    e.preventDefault();
+    setSearchTerm(e.target.value);
+
+    const srchQuery = searchInput.current.value.toLowerCase();
+
+    if (srchQuery) {
+      let srchResult = originalList.filter((list) => {
+        return list["name"].toLowerCase().includes(srchQuery);
+      });
+
+      if (srchResult) {
+        setUserData(srchResult);
+      } else {
+        setUserData({});
+      }
+    } else {
+      setUserData(originalList);
+    }
+  };
 
   const handleClear = () => {
     setSearchTerm("");
+    setUserData(originalList);
   };
 
   const handleAdd = () => {
@@ -82,7 +106,7 @@ const AssignUser = () => {
     {
       name: "Action",
       // grow: 0,
-      minWidth: "200px",
+      minWidth: "120px",
       center: true,
       selector: (row) => {
         return (
@@ -150,7 +174,7 @@ const AssignUser = () => {
         <div className="content_wrapper" ref={ref}>
           <DataTable
             columns={columns}
-            data={user}
+            data={userData}
             // customStyles={customStyles}
             pagination
             fixedHeader
@@ -164,18 +188,20 @@ const AssignUser = () => {
             striped
             subHeaderComponent={
               <>
-                <div className="filter uk-flex uk-flex-wrap">
+                <div className="filter uk-flex uk-flex-wrap uk-margin-small-bottom">
                   <div className="filter-option">
+                    <label htmlFor="search">Search</label>
                     <input
-                      // ref={searchInput}
+                      ref={searchInput}
                       type="text"
+                      id="search"
                       className="uk-input searchField"
-                      placeholder="Search"
+                      // placeholder="Search"
                       value={searchTerm}
-                      onChange={(e) => {
-                        setSearchTerm(e.target.value);
-                      }}
-                      // onChange={searchHandler}
+                      // onChange={(e) => {
+                      //   setSearchTerm(e.target.value);
+                      // }}
+                      onChange={searchHandler}
                     />
                     <div
                       className="clear"

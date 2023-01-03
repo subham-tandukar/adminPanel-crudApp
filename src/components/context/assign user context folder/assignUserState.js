@@ -10,8 +10,8 @@ function AssignUserState(props) {
   // const baseURL = "https://adminpanel-crudapp.herokuapp.com";
   // const { baseURL } = useContext(AuthContext);
   // const baseURL = process.env.REACT_APP_URL;
-  // const baseURL = "http://localhost:8003";
-  const baseURL = "https://web-production-cff8.up.railway.app";
+  const baseURL = "http://localhost:8003";
+  // const baseURL = "https://web-production-cff8.up.railway.app";
 
   const [userDetails, setUserDetails] = useState("");
   const initialValue = {
@@ -29,6 +29,7 @@ function AssignUserState(props) {
   const [loading, setLoading] = useState(true);
 
   const [userData, setUserData] = useState([]);
+  const [originalList, setOriginalList] = useState(null);
   console.log("get user data", userData);
 
   // add user
@@ -84,6 +85,7 @@ function AssignUserState(props) {
     } else {
       setUserData(data.users);
       setLoading(false);
+      setOriginalList(data.users);
     }
   };
 
@@ -224,6 +226,7 @@ function AssignUserState(props) {
         setIsSubmit,
         addUser,
         userData,
+        setUserData,
         setReload,
         reload,
         perEditSubmit,
@@ -238,6 +241,8 @@ function AssignUserState(props) {
         baseURL,
         userDetails,
         setUserDetails,
+        originalList,
+        setOriginalList,
       }}
     >
       {props.children}

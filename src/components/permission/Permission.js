@@ -490,7 +490,7 @@ const Permission = () => {
         </h4>
       </div>
 
-      <div className="content_wrapper">
+      <div className="content_wrapper" style={{ overflow: "auto" }}>
         <div className="uk-flex uk-flex-middle uk-flex-between">
           <div>
             <select

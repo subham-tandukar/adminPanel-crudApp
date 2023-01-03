@@ -40,6 +40,9 @@ const AddNotePopup = () => {
     if (!values.description) {
       errors.description = "Required";
     }
+    if (!values.noteStatus) {
+      errors.noteStatus = "Required";
+    }
     return errors;
   };
 
@@ -95,6 +98,26 @@ const AddNotePopup = () => {
                     value={inputData.description}
                   />
                   <p className="errormsg">{formError.description}</p>
+                </div>
+
+                <div className="form-wrapper">
+                  <label htmlFor="">
+                    Select status<sup className="sup-col">*</sup>
+                  </label>
+                  <select
+                    class="uk-select"
+                    value={inputData.noteStatus}
+                    name="noteStatus"
+                    onChange={handleChange}
+                  >
+                    <option disabled value="" selected>
+                      Select status
+                    </option>
+                    <option value="1">Pending</option>
+                    <option value="2">Success</option>
+                    <option value="3">Failed</option>
+                  </select>
+                  <p className="errormsg ">{formError.noteStatus}</p>
                 </div>
               </div>
             </form>

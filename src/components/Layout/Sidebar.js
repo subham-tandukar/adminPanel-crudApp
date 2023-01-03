@@ -186,7 +186,7 @@ const Sidebar = ({ userDetails, handleMobHam }) => {
                     <i className="fas fa-chevron-right"></i>
                   </span>
                 </Link>
-                <div className="uk-accordion-content uk-margin-remove-top uk-hidden">
+                <div className="uk-accordion-content uk-margin-remove-top">
                   <ul className="uk-nav uk-dropdown-nav">
                     <li style={{ borderBottom: "none", borderTop: "none" }}>
                       <Link

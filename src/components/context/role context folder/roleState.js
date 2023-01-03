@@ -75,6 +75,7 @@ function RoleState(props) {
   const [loading, setLoading] = useState(true);
 
   const [roleData, setRoleData] = useState([]);
+  const [originalList, setOriginalList] = useState(null);
   console.log("get role data", roleData);
 
   // add role
@@ -146,6 +147,7 @@ function RoleState(props) {
       console.log("error");
     } else {
       setRoleData(data);
+      setOriginalList(data);
       setLoading(false);
     }
   };
@@ -285,6 +287,7 @@ function RoleState(props) {
         setIsSubmit,
         addRole,
         roleData,
+        setRoleData,
         perEditSubmit,
         setPerEditSubmit,
         handleEdit,
@@ -296,6 +299,8 @@ function RoleState(props) {
         deleteRole,
         checked,
         setChecked,
+        originalList,
+        setOriginalList,
       }}
     >
       {props.children}

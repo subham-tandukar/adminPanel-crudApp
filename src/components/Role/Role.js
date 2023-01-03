@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import RoleContext from "../context/role context folder/roleContext";
 import { ToastContainer } from "react-toastify";
 import { GrFormClose } from "react-icons/gr";
@@ -19,6 +19,8 @@ const Role = () => {
     handleView,
     handleDelete,
     loading,
+    setRoleData,
+    originalList,
   } = useContext(RoleContext);
 
   const { role } = useContext(PermissionContext);
@@ -29,16 +31,39 @@ const Role = () => {
     setInputData(initialValue);
   };
 
+  const searchInput = useRef("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const ROLE = roleData.filter(
-    (item) =>
-      item.roleName &&
-      item.roleName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // const ROLE = roleData.filter(
+  //   (item) =>
+  //     item.roleName &&
+  //     item.roleName.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
+
+  const searchHandler = (e) => {
+    e.preventDefault();
+    setSearchTerm(e.target.value);
+
+    const srchQuery = searchInput.current.value.toLowerCase();
+
+    if (srchQuery) {
+      let srchResult = originalList.filter((list) => {
+        return list["roleName"].toLowerCase().includes(srchQuery);
+      });
+
+      if (srchResult) {
+        setRoleData(srchResult);
+      } else {
+        setRoleData({});
+      }
+    } else {
+      setRoleData(originalList);
+    }
+  };
 
   const handleClear = () => {
     setSearchTerm("");
+    setRoleData(originalList);
   };
 
   const columns = [
@@ -59,7 +84,7 @@ const Role = () => {
     {
       name: "Action",
       center: true,
-      minWidth: "200px",
+      minWidth: "120px",
       selector: (row) => {
         return (
           <>
@@ -118,7 +143,7 @@ const Role = () => {
       <div className="content_wrapper">
         <DataTable
           columns={columns}
-          data={ROLE}
+          data={roleData}
           // customStyles={customStyles}
           pagination
           fixedHeader
@@ -132,16 +157,20 @@ const Role = () => {
           striped
           subHeaderComponent={
             <>
-              <div className="filter uk-flex uk-flex-wrap">
+              <div className="filter uk-flex uk-flex-wrap uk-margin-small-bottom">
                 <div className="filter-option">
+                  <label htmlFor="search">Search</label>
                   <input
+                    ref={searchInput}
                     type="text"
+                    id="search"
                     className="uk-input searchField"
-                    placeholder="Search"
+                    // placeholder="Search"
                     value={searchTerm}
-                    onChange={(e) => {
-                      setSearchTerm(e.target.value);
-                    }}
+                    // onChange={(e) => {
+                    //   setSearchTerm(e.target.value);
+                    // }}
+                    onChange={searchHandler}
                   />
                   <div
                     className="clear"
