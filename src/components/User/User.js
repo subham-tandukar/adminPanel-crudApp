@@ -8,14 +8,14 @@ import { ToastContainer } from "react-toastify";
 import ReactToPrint from "react-to-print";
 import "../../../node_modules/react-toastify/dist/ReactToastify.css";
 import Pdf from "react-to-pdf";
-import AssignUserContext from "../context/assign user context folder/assignUserContext";
-import AddAssignUserPopup from "./AddAssignUserPopup";
-import ViewAssignUserPopup from "./ViewAssignUserPopup";
-import EditAssignUserPopup from "./EditAssignUserPopup";
-import DeleteAssignUserPopup from "./DeleteAssignUserPopup";
 import PermissionContext from "../context/permission context folder/permissionContext";
+import AddUserPopup from "./AddUserPopup";
+import EditUserPopup from "./EditUserPopup";
+import DeleteUserPopup from "./DeleteUserPopup";
+import UserContext from "../context/user context folder/userContext";
+import ViewUserPopup from "./ViewUserPopup";
 
-const AssignUser = () => {
+const User = () => {
   const {
     setInputData,
     initialValue,
@@ -26,9 +26,9 @@ const AssignUser = () => {
     handleDelete,
     loading,
     originalList,
-  } = useContext(AssignUserContext);
+  } = useContext(UserContext);
 
-  const { assignUser } = useContext(PermissionContext);
+  const { user } = useContext(PermissionContext);
 
   const componentRef = useRef();
   const searchInput = useRef("");
@@ -66,8 +66,8 @@ const AssignUser = () => {
   };
 
   const handleAdd = () => {
-    $(".add-assign-user-bg").fadeIn(300);
-    $(".add-assign-user").slideDown(500);
+    $(".add-user-bg").fadeIn(300);
+    $(".add-user").slideDown(500);
     setInputData(initialValue);
   };
 
@@ -79,6 +79,19 @@ const AssignUser = () => {
       center: true,
       cell: (row, index) => index + 1,
     },
+    // {
+    //   name: "Image",
+    //   // grow: 2,
+    //   // width: "150px",
+    //   filterable: true,
+    //   selector: (row) => {
+    //     return (
+    //       <>
+    //         <img src={row.image} alt="" />
+    //       </>
+    //     );
+    //   },
+    // },
     {
       name: "Name",
       // grow: 2,
@@ -115,13 +128,13 @@ const AssignUser = () => {
               <i className="fas fa-eye" onClick={() => handleView(row)}></i>
             </span>
 
-            {assignUser.update ? (
+            {user.update ? (
               <span className="uk-margin-right" uk-tooltip="Edit">
                 <i className="fas fa-edit" onClick={() => handleEdit(row)}></i>
               </span>
             ) : null}
 
-            {assignUser.deleted ? (
+            {user.deleted ? (
               <span uk-tooltip="Delete">
                 <i
                   className="fas fa-trash-alt"
@@ -158,11 +171,11 @@ const AssignUser = () => {
       />
       <div className=" title uk-flex uk-flex-between uk-flex-middle uk-flex-wrap">
         <h4>
-          <i className="fas fa-user uk-margin-small-right"></i>
-          Assign User
+          <i className="fas fa-user-tie uk-margin-small-right"></i>
+          User
         </h4>
         <div>
-          {assignUser.write ? (
+          {user.write ? (
             <button className="uk-button" onClick={handleAdd}>
               + Add User
             </button>
@@ -269,12 +282,12 @@ const AssignUser = () => {
         </div>
       </div>
 
-      <AddAssignUserPopup />
-      <ViewAssignUserPopup />
-      <EditAssignUserPopup />
-      <DeleteAssignUserPopup />
+      <AddUserPopup />
+      <ViewUserPopup />
+      <EditUserPopup />
+      <DeleteUserPopup />
     </>
   );
 };
 
-export default AssignUser;
+export default User;

@@ -1,21 +1,22 @@
 import React, { useContext, useEffect } from "react";
 import $ from "jquery";
 import { GrFormClose } from "react-icons/gr";
-import AssignUserContext from "../context/assign user context folder/assignUserContext";
 import RoleContext from "../context/role context folder/roleContext";
+import UserContext from "../context/user context folder/userContext";
 
-const AddAssignUserPopup = () => {
-  const { roleData } = useContext(RoleContext);
+const EditUserPopup = () => {
   const {
     inputData,
     setInputData,
     formError,
     initialValue,
     setFormError,
-    isSubmit,
-    setIsSubmit,
-    addUser,
-  } = useContext(AssignUserContext);
+    perEditSubmit,
+    setPerEditSubmit,
+    editUser,
+  } = useContext(UserContext);
+
+  const { roleData } = useContext(RoleContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,11 +24,11 @@ const AddAssignUserPopup = () => {
   };
 
   const handleClose = () => {
-    $(".add-assign-user-bg").fadeOut(300);
-    $(".add-assign-user").slideUp(500);
+    $(".edit-user-bg").fadeOut(300);
+    $(".edit-user").slideUp(500);
     setInputData(initialValue);
     setFormError({});
-    setIsSubmit(false);
+    setPerEditSubmit(false);
   };
 
   const validate = (values) => {
@@ -53,22 +54,22 @@ const AddAssignUserPopup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormError(validate(inputData));
-    setIsSubmit(true);
+    setPerEditSubmit(true);
   };
 
   useEffect(() => {
-    if (Object.keys(formError).length === 0 && isSubmit) {
-      addUser();
-      setIsSubmit(false);
+    if (Object.keys(formError).length === 0 && perEditSubmit) {
+      editUser();
+      setPerEditSubmit(false);
     }
   }, [formError]);
 
   return (
     <>
-      <section className="popup-bg add-assign-user-bg">
-        <div className="popup add-assign-user">
+      <section className="popup-bg edit-user-bg">
+        <div className="popup edit-user">
           <div className="popup-head">
-            <h4>Add User</h4>
+            <h4>Edit User</h4>
             <div className="close" onClick={handleClose}>
               <GrFormClose size="2rem" color="#fff" />
             </div>
@@ -113,6 +114,8 @@ const AddAssignUserPopup = () => {
                     name="password"
                     onChange={handleChange}
                     value={inputData.password}
+                    readOnly
+                    disabled
                   />
                   <p className="errormsg ">{formError.password}</p>
                 </div>
@@ -144,7 +147,7 @@ const AddAssignUserPopup = () => {
           </div>
           <div className="popup-footer">
             <button className="uk-button" onClick={handleSubmit}>
-              Submit
+              Update
             </button>
             <button className="uk-button cancel-btn" onClick={handleClose}>
               Cancel
@@ -156,4 +159,4 @@ const AddAssignUserPopup = () => {
   );
 };
 
-export default AddAssignUserPopup;
+export default EditUserPopup;

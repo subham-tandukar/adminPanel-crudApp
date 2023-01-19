@@ -5,21 +5,21 @@ import $ from "jquery";
 import { GrFormClose } from "react-icons/gr";
 import RoleContext from "../context/role context folder/roleContext";
 import PermissionContext from "../context/permission context folder/permissionContext";
-import UserContext from "../context/note context folder/noteContext";
-import AssignUserContext from "../context/assign user context folder/assignUserContext";
 import UsewindowDimension from "../hooks/UsewindowDimension";
+import NavbarContext from "../context/navbar-context";
+import { Fetchdata } from "../hooks/getData";
 
 const Sidebar = ({ userDetails, handleMobHam }) => {
   const { roleData } = useContext(RoleContext);
-  const { baseURL } = useContext(AssignUserContext);
+  const { baseURL } = useContext(NavbarContext);
 
   const {
     role,
     setRole,
     permission,
     setPermission,
-    assignUser,
-    setAssignUser,
+    user,
+    setUser,
     form,
     setForm,
     filter,
@@ -32,11 +32,10 @@ const Sidebar = ({ userDetails, handleMobHam }) => {
 
   console.log("role", role);
   console.log("permission", permission);
-  console.log("assignUser", assignUser);
+  console.log("User", user);
   console.log("form", form);
   console.log("filter", filter);
   console.log("sortable", sortable);
-  // console.log("dashboard", dashboard);
   console.log("slideshow", slideshow);
 
   const roleName = userDetails.roleName;
@@ -49,29 +48,29 @@ const Sidebar = ({ userDetails, handleMobHam }) => {
 
   const id = $("#id").val();
 
-  // set permission
+  // set permission-----------------------------------
 
-  const PermData = async () => {
-    const response = await fetch(`${baseURL}/getRole/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+  const PermData = () => {
+    const dataForm = {
+      FetchURL: `${baseURL}/getRole/${id}`,
+      Type: "GET",
+    };
+
+    Fetchdata(dataForm).then(function (result) {
+      console.log("result", result);
+      if (result.StatusCode === 200) {
+        const postResult = result.RoleList[0] ? result.RoleList[0] : "";
+        setRole(postResult.role[0]);
+        setPermission(postResult.permission[0]);
+        setUser(postResult.user[0]);
+        setForm(postResult.form[0]);
+        setFilter(postResult.filter[0]);
+        setSortable(postResult.sortable[0]);
+        setSlideshow(postResult.slideshow[0]);
+      } else {
+        console.log(result.Message);
+      }
     });
-    const data = await response.json();
-
-    if (response.status === 422) {
-      console.log("error");
-    } else {
-      setRole(data.role[0]);
-      setPermission(data.permission[0]);
-      setAssignUser(data.assignUser[0]);
-      setForm(data.form[0]);
-      setFilter(data.filter[0]);
-      setSortable(data.sortable[0]);
-      // setDashboard(data.dashboard[0]);
-      setSlideshow(data.slideshow[0]);
-    }
   };
 
   useEffect(() => {
@@ -142,15 +141,15 @@ const Sidebar = ({ userDetails, handleMobHam }) => {
           </li>
         ) : null}
 
-        {assignUser.read ? (
+        {user.read ? (
           <li>
             <NavLink
-              to="/assign-user"
+              to="/user"
               className="list non-active"
               onClick={handleActive}
             >
-              <i className="fas fa-user"></i>
-              <span className="list-name">Assign User</span>
+              <i className="fas fa-user-tie"></i>
+              <span className="list-name"> User</span>
             </NavLink>
           </li>
         ) : null}
@@ -299,15 +298,15 @@ const Sidebar = ({ userDetails, handleMobHam }) => {
           </li>
         ) : null}
 
-        {assignUser.read ? (
+        {user.read ? (
           <li>
             <NavLink
-              to="/assign-user"
+              to="/user"
               className="list non-active mob-ham"
               onClick={handleActive}
             >
-              <i className="fas fa-user"></i>
-              <span className="list-name">Assign User</span>
+              <i className="fas fa-user-tie"></i>
+              <span className="list-name"> User</span>
             </NavLink>
           </li>
         ) : null}

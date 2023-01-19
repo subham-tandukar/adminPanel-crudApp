@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import AssignUserContext from "../context/assign user context folder/assignUserContext";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import $ from "jquery";
+import NavbarContext from "../context/navbar-context";
 
 const Layout = (props) => {
-  const { userDetails, setUserDetails } = useContext(AssignUserContext);
+  const { userDetails, setUserDetails } = useContext(NavbarContext);
 
   useEffect(() => {
     const cur_user = localStorage.getItem("token");

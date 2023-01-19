@@ -3,11 +3,11 @@ import RoleContext from "./roleContext";
 import $ from "jquery";
 import { toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
-import AuthContext from "../auth-context";
-import AssignUserContext from "../assign user context folder/assignUserContext";
+import NavbarContext from "../navbar-context";
+import { Fetchdata } from "../../hooks/getData";
 
 function RoleState(props) {
-  const { baseURL } = useContext(AssignUserContext);
+  const { baseURL } = useContext(NavbarContext);
   const [checked, setChecked] = useState(false);
   const initialValue = {
     roleName: "",
@@ -23,18 +23,12 @@ function RoleState(props) {
       update: checked,
       deleted: checked,
     },
-    assignUser: {
+    user: {
       read: checked,
       write: checked,
       update: checked,
       deleted: checked,
     },
-    // user: {
-    //   read: checked,
-    //   write: checked,
-    //   update: checked,
-    //   deleted: checked,
-    // },
     form: {
       read: checked,
       write: checked,
@@ -53,12 +47,6 @@ function RoleState(props) {
       update: checked,
       deleted: checked,
     },
-    // dashboard: {
-    //   read: checked,
-    //   write: checked,
-    //   update: checked,
-    //   deleted: checked,
-    // },
     slideshow: {
       read: checked,
       write: checked,
@@ -78,83 +66,66 @@ function RoleState(props) {
   const [originalList, setOriginalList] = useState(null);
   console.log("get role data", roleData);
 
-  // add role
-  const addRole = async () => {
-    const {
-      roleName,
-      role,
-      permission,
-      assignUser,
-      // user,
-      form,
-      filter,
-      sortable,
-      // dashboard,
-      slideshow,
-    } = inputData;
-
-    const response = await fetch(`${baseURL}/addRole`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        roleName,
-        role,
-        permission,
-        assignUser,
-        // user,
-        form,
-        filter,
-        sortable,
-        // dashboard,
-        slideshow,
-      }),
+  // add role-----------------------------------
+  const addRole = () => {
+    const dataForm = {
+      roleName: inputData.roleName,
+      role: inputData.role,
+      permission: inputData.permission,
+      user: inputData.user,
+      form: inputData.form,
+      filter: inputData.permission,
+      sortable: inputData.permission,
+      slideshow: inputData.slideshow,
+      FetchURL: `${baseURL}/addRole`,
+      Type: "POST",
+    };
+    console.log(dataForm);
+    Fetchdata(dataForm).then(function (result) {
+      console.log("result", result);
+      if (result.StatusCode === 200) {
+        toast.success("Role added sucessfully", {
+          theme: "light",
+        });
+        setReload(!reload);
+        $(".add-role-bg").fadeOut(300);
+        $(".add-role").slideUp(500);
+      } else {
+        toast.error(result.Message, {
+          theme: "light",
+        });
+      }
     });
-    const data = await response.json();
-    console.log("addRole", data);
-
-    if (response.status === 422) {
-      toast.error(data.message, {
-        theme: "light",
-      });
-    } else {
-      toast.success("Role added sucessfully", {
-        theme: "light",
-      });
-      setReload(!reload);
-      $(".add-role-bg").fadeOut(300);
-      $(".add-role").slideUp(500);
-    }
   };
 
-  // get role
+  // get role-----------------------------------
   useEffect(() => {
     getRoleData();
   }, [reload]);
 
-  const getRoleData = async (e) => {
-    const response = await fetch(`${baseURL}/getRoleData`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    console.log("data", data);
+  const getRoleData = () => {
+    const dataForm = {
+      FetchURL: `${baseURL}/getRoleData`,
+      Type: "GET",
+    };
 
-    if (response.status === 422) {
-      console.log("error");
-    } else {
-      setRoleData(data);
-      setOriginalList(data);
-      setLoading(false);
-    }
+    Fetchdata(dataForm).then(function (result) {
+      console.log("result", result);
+      if (result.StatusCode === 200) {
+        const postResult = result.RoleData ? result.RoleData : "";
+        setRoleData(postResult);
+        setOriginalList(postResult);
+        setLoading(false);
+      } else {
+        setRoleData([]);
+        setLoading(false);
+      }
+    });
   };
 
   console.log("roledata", roleData);
 
-  // view role
+  // view role-----------------------------------
   const [viewID, setViewId] = useState("");
   const [view, setView] = useState([]);
 
@@ -166,29 +137,30 @@ function RoleState(props) {
 
   const id = viewID;
 
-  const viewData = async () => {
-    const response = await fetch(`${baseURL}/getRole/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    console.log("datsassaa", data);
+  const viewData = () => {
+    const dataForm = {
+      FetchURL: `${baseURL}/getRole/${id}`,
+      Type: "GET",
+    };
 
-    if (response.status === 422) {
-      console.log("error");
-    } else {
-      setView(data);
-      setLoading(false);
-    }
+    Fetchdata(dataForm).then(function (result) {
+      console.log("result", result);
+      if (result.StatusCode === 200) {
+        const postResult = result.RoleList[0] ? result.RoleList[0] : "";
+        setView(postResult);
+        setLoading(false);
+      } else {
+        setView([]);
+        setLoading(false);
+      }
+    });
   };
 
   useEffect(() => {
     viewData();
   }, [id, reload]);
 
-  // edit role
+  // edit role-----------------------------------
   const [perEditSubmit, setPerEditSubmit] = useState(false);
   const [perID, setPerId] = useState(null);
   const [roleEdit, setRoleEdit] = useState("");
@@ -199,43 +171,37 @@ function RoleState(props) {
     $(".edit-role-bg").fadeIn(300);
     $(".edit-role").slideDown(500);
     setInputData({
-      role: data.roleName,
+      roleName: data.roleName,
     });
   };
 
   const editid = perID;
 
-  const editRole = async () => {
-    const { roleName, role } = inputData;
+  const editRole = () => {
+    const dataForm = {
+      roleName: inputData.roleName,
+      FetchURL: `${baseURL}/updateRole/${editid}`,
+      Type: "PATCH",
+    };
 
-    const response = await fetch(`${baseURL}/updateRole/${editid}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        roleName,
-        role,
-      }),
+    Fetchdata(dataForm).then(function (result) {
+      console.log("result", result);
+      if (result.StatusCode === 200) {
+        toast.success(`Role ${roleEdit} updated sucessfully`, {
+          theme: "light",
+        });
+        setReload(!reload);
+        $(".edit-role-bg").fadeOut(300);
+        $(".edit-role").slideUp(500);
+      } else {
+        toast.error(result.Message, {
+          theme: "light",
+        });
+      }
     });
-    const data = await response.json();
-    console.log("editData", data);
-
-    if (response.status === 422) {
-      toast.error("This role already exist", {
-        theme: "light",
-      });
-    } else {
-      toast.success(`Role ${roleEdit} updated sucessfully`, {
-        theme: "light",
-      });
-      setReload(!reload);
-      $(".edit-role-bg").fadeOut(300);
-      $(".edit-role").slideUp(500);
-    }
   };
 
-  //   delete role
+  //   delete role-----------------------------------
   const [deleteID, setDeleteId] = useState(null);
   const [roleDelete, setRoleDelete] = useState("");
 
@@ -248,29 +214,28 @@ function RoleState(props) {
 
   const deleteid = deleteID;
 
-  const deleteRole = async () => {
-    const response = await fetch(`${baseURL}/deleteRole/${deleteid}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
-    console.log("deleteData", data);
+  const deleteRole = () => {
+    const dataForm = {
+      FetchURL: `${baseURL}/deleteRole/${deleteid}`,
+      Type: "DELETE",
+    };
 
-    if (response.status === 422) {
-      toast.error(data.message, {
-        theme: "light",
-      });
-    } else {
-      toast.success(`Role ${roleDelete} deleted sucessfully`, {
-        theme: "light",
-      });
-      setReload(!reload);
-      $(".delete-role-bg").fadeOut(300);
-      $(".delete-role").slideUp(500);
-      getRoleData();
-    }
+    Fetchdata(dataForm).then(function (result) {
+      console.log("result", result);
+      if (result.StatusCode === 200) {
+        toast.success(`Role ${roleDelete} deleted sucessfully`, {
+          theme: "light",
+        });
+        setReload(!reload);
+        $(".delete-role-bg").fadeOut(300);
+        $(".delete-role").slideUp(500);
+        getRoleData();
+      } else {
+        toast.error(result.Message, {
+          theme: "light",
+        });
+      }
+    });
   };
 
   return (

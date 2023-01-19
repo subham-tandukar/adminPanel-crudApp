@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import $ from "jquery";
 import { GrFormClose } from "react-icons/gr";
-import AssignUserContext from "../context/assign user context folder/assignUserContext";
+import UserContext from "../context/user context folder/userContext";
 
-const DeleteAssignUserPopup = () => {
-  const { deleteUser } = useContext(AssignUserContext);
+const DeleteUserPopup = () => {
+  const { deleteUser } = useContext(UserContext);
 
   const handleClose = () => {
-    $(".delete-assign-user-bg").fadeOut(300);
-    $(".delete-assign-user").slideUp(500);
+    $(".delete-user-bg").fadeOut(300);
+    $(".delete-user").slideUp(500);
   };
 
   const handleDelete = () => {
@@ -17,8 +17,8 @@ const DeleteAssignUserPopup = () => {
 
   return (
     <>
-      <section className="popup-bg delete-assign-user-bg">
-        <div className="popup delete-assign-user">
+      <section className="popup-bg delete-user-bg">
+        <div className="popup delete-user">
           <div className="popup-head">
             <h4>Delete User</h4>
             <div className="close" onClick={handleClose}>
@@ -52,4 +52,4 @@ const DeleteAssignUserPopup = () => {
   );
 };
 
-export default DeleteAssignUserPopup;
+export default DeleteUserPopup;

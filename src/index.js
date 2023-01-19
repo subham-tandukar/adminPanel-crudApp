@@ -5,16 +5,19 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./components/context/auth-context";
+import { NavbarContextProvider } from "./components/context/navbar-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <AuthContextProvider>
-    <BrowserRouter>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </BrowserRouter>
-  </AuthContextProvider>
+  <React.StrictMode>
+    <AuthContextProvider>
+      <NavbarContextProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </NavbarContextProvider>
+    </AuthContextProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

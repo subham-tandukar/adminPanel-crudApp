@@ -4,7 +4,6 @@ import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/auth-context";
 import LogOut from "./LogOut";
-import UserContext from "../context/note context folder/noteContext";
 
 const Navbar = ({ userDetails, handleMobHam }) => {
   const { logout } = useContext(AuthContext);

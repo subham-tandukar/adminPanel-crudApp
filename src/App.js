@@ -13,16 +13,16 @@ import RoleState from "./components/context/role context folder/roleState";
 import Role from "./components/Role/Role";
 import Permission from "./components/permission/Permission";
 import PermissionState from "./components/context/permission context folder/permissionState";
-import AssignUserState from "./components/context/assign user context folder/assignUserState";
-import AssignUser from "./components/Assign User/AssignUser";
 import Login from "./components/Login/Login";
 import AuthContext from "./components/context/auth-context";
 import ErrorPage from "./components/ErrorPage";
 import Note from "./components/Note/Note";
 import NoteState from "./components/context/note context folder/noteState";
+import UserState from "./components/context/user context folder/userState";
+import User from "./components/User/User";
 
 const App = () => {
-  const { User } = useContext(AuthContext);
+  const { UserDATA } = useContext(AuthContext);
 
   // const role = JSON.parse(localStorage.getItem("ROLE"));
   // const permission = JSON.parse(localStorage.getItem("PERMISSION"));
@@ -35,14 +35,14 @@ const App = () => {
   return (
     <>
       <Routes>
-        {!User && <Route path="*" element={<Login />} />}
-        {User && <Route path="/login" element={<Navigate to="/" />} />}
+        {!UserDATA && <Route path="*" element={<Login />} />}
+        {UserDATA && <Route path="/login" element={<Navigate to="/" />} />}
       </Routes>
 
       <div className="app">
-        {User && (
+        {UserDATA && (
           <>
-            <AssignUserState>
+            <UserState>
               <NoteState>
                 <RoleState>
                   <PermissionState>
@@ -51,7 +51,7 @@ const App = () => {
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/role" element={<Role />} />
                         <Route path="/permission" element={<Permission />} />
-                        <Route path="/assign-user" element={<AssignUser />} />
+                        <Route path="/user" element={<User />} />
                         <Route path="/form" element={<Form />} />
                         <Route path="/filter1" element={<Filter1 />} />
                         <Route path="/filter2" element={<Filter2 />} />
@@ -117,7 +117,7 @@ const App = () => {
                   </PermissionState>
                 </RoleState>
               </NoteState>
-            </AssignUserState>
+            </UserState>
           </>
         )}
       </div>

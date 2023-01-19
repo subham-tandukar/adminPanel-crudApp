@@ -30,23 +30,14 @@ const Permission = () => {
     setUpdatePermission,
     setDeletedPermission,
 
-    readAssignUser,
-    writeAssignUser,
-    updateAssignUser,
-    deletedAssignUser,
-    setReadAssignUser,
-    setWriteAssignUser,
-    setUpdateAssignUser,
-    setDeletedAssignUser,
-
-    // readUser,
-    // writeUser,
-    // updateUser,
-    // deletedUser,
-    // setReadUser,
-    // setWriteUser,
-    // setUpdateUser,
-    // setDeletedUser,
+    readUser,
+    writeUser,
+    updateUser,
+    deletedUser,
+    setReadUser,
+    setWriteUser,
+    setUpdateUser,
+    setDeletedUser,
 
     readForm,
     writeForm,
@@ -74,15 +65,6 @@ const Permission = () => {
     setWriteSortable,
     setUpdateSortable,
     setDeletedSortable,
-
-    // readDashboard,
-    // writeDashboard,
-    // updateDashboard,
-    // deletedDashboard,
-    // setReadDashboard,
-    // setWriteDashboard,
-    // setUpdateDashboard,
-    // setDeletedDashboard,
 
     readSlideshow,
     writeSlideshow,
@@ -189,14 +171,14 @@ const Permission = () => {
     },
 
     {
-      name: "Assign User",
+      name: " User",
       read: (
         <input
           className="uk-checkbox"
           type="checkbox"
           name="closeChecked"
-          onChange={(e) => setReadAssignUser(e.target.checked)}
-          checked={readAssignUser}
+          onChange={(e) => setReadUser(e.target.checked)}
+          checked={readUser}
         />
       ),
       write: (
@@ -204,8 +186,8 @@ const Permission = () => {
           className="uk-checkbox"
           type="checkbox"
           name="closeChecked"
-          onChange={(e) => setWriteAssignUser(e.target.checked)}
-          checked={writeAssignUser}
+          onChange={(e) => setWriteUser(e.target.checked)}
+          checked={writeUser}
         />
       ),
       update: (
@@ -213,8 +195,8 @@ const Permission = () => {
           className="uk-checkbox"
           type="checkbox"
           name="closeChecked"
-          onChange={(e) => setUpdateAssignUser(e.target.checked)}
-          checked={updateAssignUser}
+          onChange={(e) => setUpdateUser(e.target.checked)}
+          checked={updateUser}
         />
       ),
       deleted: (
@@ -222,51 +204,11 @@ const Permission = () => {
           className="uk-checkbox"
           type="checkbox"
           name="closeChecked"
-          onChange={(e) => setDeletedAssignUser(e.target.checked)}
-          checked={deletedAssignUser}
+          onChange={(e) => setDeletedUser(e.target.checked)}
+          checked={deletedUser}
         />
       ),
     },
-
-    // {
-    //   name: "User",
-    //   read: (
-    //     <input
-    //       className="uk-checkbox"
-    //       type="checkbox"
-    //       name="closeChecked"
-    //       onChange={(e) => setReadUser(e.target.checked)}
-    //       checked={readUser}
-    //     />
-    //   ),
-    //   write: (
-    //     <input
-    //       className="uk-checkbox"
-    //       type="checkbox"
-    //       name="closeChecked"
-    //       onChange={(e) => setWriteUser(e.target.checked)}
-    //       checked={writeUser}
-    //     />
-    //   ),
-    //   update: (
-    //     <input
-    //       className="uk-checkbox"
-    //       type="checkbox"
-    //       name="closeChecked"
-    //       onChange={(e) => setUpdateUser(e.target.checked)}
-    //       checked={updateUser}
-    //     />
-    //   ),
-    //   deleted: (
-    //     <input
-    //       className="uk-checkbox"
-    //       type="checkbox"
-    //       name="closeChecked"
-    //       onChange={(e) => setDeletedUser(e.target.checked)}
-    //       checked={deletedUser}
-    //     />
-    //   ),
-    // },
 
     {
       name: "Form",
@@ -387,46 +329,6 @@ const Permission = () => {
         />
       ),
     },
-
-    // {
-    //   name: "Dashboard",
-    //   read: (
-    //     <input
-    //       className="uk-checkbox"
-    //       type="checkbox"
-    //       name="closeChecked"
-    //       onChange={(e) => setReadDashboard(e.target.checked)}
-    //       checked={readDashboard}
-    //     />
-    //   ),
-    //   write: (
-    //     <input
-    //       className="uk-checkbox"
-    //       type="checkbox"
-    //       name="closeChecked"
-    //       onChange={(e) => setWriteDashboard(e.target.checked)}
-    //       checked={writeDashboard}
-    //     />
-    //   ),
-    //   update: (
-    //     <input
-    //       className="uk-checkbox"
-    //       type="checkbox"
-    //       name="closeChecked"
-    //       onChange={(e) => setUpdateDashboard(e.target.checked)}
-    //       checked={updateDashboard}
-    //     />
-    //   ),
-    //   deleted: (
-    //     <input
-    //       className="uk-checkbox"
-    //       type="checkbox"
-    //       name="closeChecked"
-    //       onChange={(e) => setDeletedDashboard(e.target.checked)}
-    //       checked={deletedDashboard}
-    //     />
-    //   ),
-    // },
 
     {
       name: "Slideshow",

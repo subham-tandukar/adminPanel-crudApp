@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import $ from "jquery";
 import { GrFormClose } from "react-icons/gr";
 import Loading from "../Loading/Loading";
-import AssignUserContext from "../context/assign user context folder/assignUserContext";
+import UserContext from "../context/user context folder/userContext";
 
-const ViewAssignUserPopup = () => {
-  const { view, loading } = useContext(AssignUserContext);
+const ViewUserPopup = () => {
+  const { view, loading } = useContext(UserContext);
 
   const handleClose = () => {
-    $(".view-assign-user-bg").fadeOut(300);
-    $(".view-assign-user").slideUp(500);
+    $(".view-user-bg").fadeOut(300);
+    $(".view-user").slideUp(500);
   };
 
   const viewList = [
@@ -32,8 +32,8 @@ const ViewAssignUserPopup = () => {
 
   return (
     <>
-      <section className="popup-bg view-assign-user-bg">
-        <div className="popup view-assign-user">
+      <section className="popup-bg view-user-bg">
+        <div className="popup view-user">
           <div className="popup-head">
             <h4>View User</h4>
             <div className="close" onClick={handleClose}>
@@ -87,4 +87,4 @@ const ViewAssignUserPopup = () => {
   );
 };
 
-export default ViewAssignUserPopup;
+export default ViewUserPopup;

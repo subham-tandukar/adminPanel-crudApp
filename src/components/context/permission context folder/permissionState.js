@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import PermissionContext from "./permissionContext";
 import { toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
-import AuthContext from "../auth-context";
-import AssignUserContext from "../assign user context folder/assignUserContext";
+import NavbarContext from "../navbar-context";
+import { Fetchdata } from "../../hooks/getData";
 
 function PermissionState(props) {
-  const { baseURL } = useContext(AssignUserContext);
+  const { baseURL } = useContext(NavbarContext);
   const initialRoleValue = {
     roleName: "",
     closeChecked: "",
@@ -16,7 +16,7 @@ function PermissionState(props) {
 
   const [roleId, setRoleId] = useState("");
 
-  // view role data list
+  // view role data list-----------------------------------
   const [readRole, setReadRole] = useState(false);
   const [writeRole, setWriteRole] = useState(false);
   const [updateRole, setUpdateRole] = useState(false);
@@ -27,15 +27,10 @@ function PermissionState(props) {
   const [updatePermission, setUpdatePermission] = useState(false);
   const [deletedPermission, setDeletedPermission] = useState(false);
 
-  const [readAssignUser, setReadAssignUser] = useState(false);
-  const [writeAssignUser, setWriteAssignUser] = useState(false);
-  const [updateAssignUser, setUpdateAssignUser] = useState(false);
-  const [deletedAssignUser, setDeletedAssignUser] = useState(false);
-
-  // const [readUser, setReadUser] = useState(false);
-  // const [writeUser, setWriteUser] = useState(false);
-  // const [updateUser, setUpdateUser] = useState(false);
-  // const [deletedUser, setDeletedUser] = useState(false);
+  const [readUser, setReadUser] = useState(false);
+  const [writeUser, setWriteUser] = useState(false);
+  const [updateUser, setUpdateUser] = useState(false);
+  const [deletedUser, setDeletedUser] = useState(false);
 
   const [readForm, setReadForm] = useState(false);
   const [writeForm, setWriteForm] = useState(false);
@@ -52,11 +47,6 @@ function PermissionState(props) {
   const [updateSortable, setUpdateSortable] = useState(false);
   const [deletedSortable, setDeletedSortable] = useState(false);
 
-  // const [readDashboard, setReadDashboard] = useState(false);
-  // const [writeDashboard, setWriteDashboard] = useState(false);
-  // const [updateDashboard, setUpdateDashboard] = useState(false);
-  // const [deletedDashboard, setDeletedDashboard] = useState(false);
-
   const [readSlideshow, setReadSlideshow] = useState(false);
   const [writeSlideshow, setWriteSlideshow] = useState(false);
   const [updateSlideshow, setUpdateSlideshow] = useState(false);
@@ -66,150 +56,127 @@ function PermissionState(props) {
 
   console.log("id", id);
 
-  const viewData = async () => {
-    const response = await fetch(`${baseURL}/getRole/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+  const viewData = () => {
+    const dataForm = {
+      FetchURL: `${baseURL}/getRole/${id}`,
+      Type: "GET",
+    };
+
+    Fetchdata(dataForm).then(function (result) {
+      console.log("result", result);
+      if (result.StatusCode === 200) {
+        const postResult = result.RoleList[0] ? result.RoleList[0] : "";
+
+        setReadRole(postResult.role[0].read);
+        setWriteRole(postResult.role[0].write);
+        setUpdateRole(postResult.role[0].update);
+        setDeletedRole(postResult.role[0].deleted);
+
+        setReadPermission(postResult.permission[0].read);
+        setWritePermission(postResult.permission[0].write);
+        setUpdatePermission(postResult.permission[0].update);
+        setDeletedPermission(postResult.permission[0].deleted);
+
+        setReadUser(postResult.user[0].read);
+        setWriteUser(postResult.user[0].write);
+        setUpdateUser(postResult.user[0].update);
+        setDeletedUser(postResult.user[0].deleted);
+
+        setReadForm(postResult.form[0].read);
+        setWriteForm(postResult.form[0].write);
+        setUpdateForm(postResult.form[0].update);
+        setDeletedForm(postResult.form[0].deleted);
+
+        setReadFilter(postResult.filter[0].read);
+        setWriteFilter(postResult.filter[0].write);
+        setUpdateFilter(postResult.filter[0].update);
+        setDeletedFilter(postResult.filter[0].deleted);
+
+        setReadSortable(postResult.sortable[0].read);
+        setWriteSortable(postResult.sortable[0].write);
+        setUpdateSortable(postResult.sortable[0].update);
+        setDeletedSortable(postResult.sortable[0].deleted);
+
+        setReadSlideshow(postResult.slideshow[0].read);
+        setWriteSlideshow(postResult.slideshow[0].write);
+        setUpdateSlideshow(postResult.slideshow[0].update);
+        setDeletedSlideshow(postResult.slideshow[0].deleted);
+      } else {
+        console.log(result.Message);
+      }
     });
-    const data = await response.json();
-
-    if (response.status === 422) {
-      console.log("error");
-    } else {
-      setReadRole(data.role[0].read);
-      setWriteRole(data.role[0].write);
-      setUpdateRole(data.role[0].update);
-      setDeletedRole(data.role[0].deleted);
-
-      setReadPermission(data.permission[0].read);
-      setWritePermission(data.permission[0].write);
-      setUpdatePermission(data.permission[0].update);
-      setDeletedPermission(data.permission[0].deleted);
-
-      setReadAssignUser(data.assignUser[0].read);
-      setWriteAssignUser(data.assignUser[0].write);
-      setUpdateAssignUser(data.assignUser[0].update);
-      setDeletedAssignUser(data.assignUser[0].deleted);
-
-      // setReadUser(data.user[0].read);
-      // setWriteUser(data.user[0].write);
-      // setUpdateUser(data.user[0].update);
-      // setDeletedUser(data.user[0].deleted);
-
-      setReadForm(data.form[0].read);
-      setWriteForm(data.form[0].write);
-      setUpdateForm(data.form[0].update);
-      setDeletedForm(data.form[0].deleted);
-
-      setReadFilter(data.filter[0].read);
-      setWriteFilter(data.filter[0].write);
-      setUpdateFilter(data.filter[0].update);
-      setDeletedFilter(data.filter[0].deleted);
-
-      setReadSortable(data.sortable[0].read);
-      setWriteSortable(data.sortable[0].write);
-      setUpdateSortable(data.sortable[0].update);
-      setDeletedSortable(data.sortable[0].deleted);
-
-      // setReadDashboard(data.dashboard[0].read);
-      // setWriteDashboard(data.dashboard[0].write);
-      // setUpdateDashboard(data.dashboard[0].update);
-      // setDeletedDashboard(data.dashboard[0].deleted);
-
-      setReadSlideshow(data.slideshow[0].read);
-      setWriteSlideshow(data.slideshow[0].write);
-      setUpdateSlideshow(data.slideshow[0].update);
-      setDeletedSlideshow(data.slideshow[0].deleted);
-    }
   };
 
   useEffect(() => {
     viewData();
   }, [id]);
 
-  // assign permission
-  const assignPermission = async () => {
-    const response = await fetch(`${baseURL}/updateRole/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
+  //  permission-----------------------------------
+  const assignPermission = () => {
+    const dataForm = {
+      role: {
+        read: readRole,
+        write: writeRole,
+        update: updateRole,
+        deleted: deletedRole,
       },
-      body: JSON.stringify({
-        role: {
-          read: readRole,
-          write: writeRole,
-          update: updateRole,
-          deleted: deletedRole,
-        },
-        permission: {
-          read: readPermission,
-          write: writePermission,
-          update: updatePermission,
-          deleted: deletedPermission,
-        },
-        assignUser: {
-          read: readAssignUser,
-          write: writeAssignUser,
-          update: updateAssignUser,
-          deleted: deletedAssignUser,
-        },
-        // user: {
-        //   read: readUser,
-        //   write: writeUser,
-        //   update: updateUser,
-        //   deleted: deletedUser,
-        // },
-        form: {
-          read: readForm,
-          write: writeForm,
-          update: updateForm,
-          deleted: deletedForm,
-        },
-        filter: {
-          read: readFilter,
-          write: writeFilter,
-          update: updateFilter,
-          deleted: deletedFilter,
-        },
-        sortable: {
-          read: readSortable,
-          write: writeSortable,
-          update: updateSortable,
-          deleted: deletedSortable,
-        },
-        // dashboard: {
-        //   read: readDashboard,
-        //   write: writeDashboard,
-        //   update: updateDashboard,
-        //   deleted: deletedDashboard,
-        // },
-        slideshow: {
-          read: readSlideshow,
-          write: writeSlideshow,
-          update: updateSlideshow,
-          deleted: deletedSlideshow,
-        },
-      }),
-    });
-    const data = await response.json();
-    console.log("editData", data);
+      permission: {
+        read: readPermission,
+        write: writePermission,
+        update: updatePermission,
+        deleted: deletedPermission,
+      },
+      user: {
+        read: readUser,
+        write: writeUser,
+        update: updateUser,
+        deleted: deletedUser,
+      },
+      form: {
+        read: readForm,
+        write: writeForm,
+        update: updateForm,
+        deleted: deletedForm,
+      },
+      filter: {
+        read: readFilter,
+        write: writeFilter,
+        update: updateFilter,
+        deleted: deletedFilter,
+      },
+      sortable: {
+        read: readSortable,
+        write: writeSortable,
+        update: updateSortable,
+        deleted: deletedSortable,
+      },
+      slideshow: {
+        read: readSlideshow,
+        write: writeSlideshow,
+        update: updateSlideshow,
+        deleted: deletedSlideshow,
+      },
+      FetchURL: `${baseURL}/updateRole/${id}`,
+      Type: "PATCH",
+    };
 
-    if (response.status === 422) {
-      toast.error(data.message, {
-        theme: "light",
-      });
-    } else {
-      toast.success(`Permission assigned sucessfully`, {
-        theme: "light",
-      });
-    }
+    Fetchdata(dataForm).then(function (result) {
+      console.log("result", result);
+      if (result.StatusCode === 200) {
+        toast.success(`Permission assiged sucessfully`, {
+          theme: "light",
+        });
+      } else {
+        toast.error(result.Message, {
+          theme: "light",
+        });
+      }
+    });
   };
 
   const [role, setRole] = useState([]);
   const [permission, setPermission] = useState([]);
-  const [assignUser, setAssignUser] = useState([]);
+  const [user, setUser] = useState([]);
   const [form, setForm] = useState([]);
   const [filter, setFilter] = useState([]);
   const [sortable, setSortable] = useState([]);
@@ -218,7 +185,7 @@ function PermissionState(props) {
 
   // localStorage.setItem("ROLE", JSON.stringify(role.read));
   // localStorage.setItem("PERMISSION", JSON.stringify(permission.read));
-  // localStorage.setItem("USER", JSON.stringify(assignUser.read));
+  // localStorage.setItem("USER", JSON.stringify(User.read));
   // localStorage.setItem("FORM", JSON.stringify(form.read));
   // localStorage.setItem("FILTER", JSON.stringify(filter.read));
   // localStorage.setItem("SORTABLE", JSON.stringify(sortable.read));
@@ -231,8 +198,8 @@ function PermissionState(props) {
         setRole,
         permission,
         setPermission,
-        assignUser,
-        setAssignUser,
+        user,
+        setUser,
         form,
         setForm,
         filter,
@@ -268,23 +235,14 @@ function PermissionState(props) {
         setUpdatePermission,
         setDeletedPermission,
 
-        readAssignUser,
-        writeAssignUser,
-        updateAssignUser,
-        deletedAssignUser,
-        setReadAssignUser,
-        setWriteAssignUser,
-        setUpdateAssignUser,
-        setDeletedAssignUser,
-
-        // readUser,
-        // writeUser,
-        // updateUser,
-        // deletedUser,
-        // setReadUser,
-        // setWriteUser,
-        // setUpdateUser,
-        // setDeletedUser,
+        readUser,
+        writeUser,
+        updateUser,
+        deletedUser,
+        setReadUser,
+        setWriteUser,
+        setUpdateUser,
+        setDeletedUser,
 
         readForm,
         writeForm,
@@ -312,15 +270,6 @@ function PermissionState(props) {
         setWriteSortable,
         setUpdateSortable,
         setDeletedSortable,
-
-        // readDashboard,
-        // writeDashboard,
-        // updateDashboard,
-        // deletedDashboard,
-        // setReadDashboard,
-        // setWriteDashboard,
-        // setUpdateDashboard,
-        // setDeletedDashboard,
 
         readSlideshow,
         writeSlideshow,

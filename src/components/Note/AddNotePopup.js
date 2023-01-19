@@ -113,9 +113,9 @@ const AddNotePopup = () => {
                     <option disabled value="" selected>
                       Select status
                     </option>
-                    <option value="1">Pending</option>
-                    <option value="2">Success</option>
-                    <option value="3">Failed</option>
+                    <option value="0">Pending</option>
+                    <option value="1">Success</option>
+                    <option value="2">Failed</option>
                   </select>
                   <p className="errormsg ">{formError.noteStatus}</p>
                 </div>

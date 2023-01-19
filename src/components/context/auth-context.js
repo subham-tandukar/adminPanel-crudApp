@@ -19,7 +19,7 @@ export const AuthContextProvider = (props) => {
     setUserID(null);
   };
   const contextValue = {
-    User: UserID,
+    UserDATA: UserID,
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,
     logout: logoutHandler,

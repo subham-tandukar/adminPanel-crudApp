@@ -858,4 +858,56 @@ form {
 //   }
 // }
 
+// ----------------------
+.BoxUpload {
+  display: grid;
+  margin-top: 10px;
+  place-items: center;
+  border: 1px solid #aab9d3;
+  /* padding: 36px 48px; */
+  position: relative;
+  height: 150px;
+  width: 100%;
+  background: #fbfbff;
+  border-radius: 5px;
+}
+.BoxUpload > .image-upload {
+  display: flex;
+  flex-wrap: wrap;
+}
+.image-upload > label {
+  cursor: pointer;
+}
+.image-upload > label :hover {
+  opacity: 0.8;
+}
+.image-upload > input {
+  display: none;
+}
+
+.ImagePreview {
+  position: relative;
+}
+/* cursor: pointer; */
+#uploaded-image {
+  height: 150px;
+  width: 100%;
+  object-fit: fill;
+  border-radius: 5px;
+}
+.close-icon {
+  background: #000;
+  border-radius: 5px;
+  opacity: 0.7;
+  position: absolute;
+  z-index: 10;
+  right: 4px;
+  top: 5px;
+  cursor: pointer;
+  z-index: 0;
+}
+.close-icon:hover {
+  opacity: 1;
+}
+
 @import "responsive";

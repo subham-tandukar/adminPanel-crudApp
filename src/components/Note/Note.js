@@ -109,9 +109,9 @@ const Note = () => {
       // center: true,
       sortable: true,
       selector: (row) =>
-        row.noteStatus === 1 ? (
+        row.noteStatus === 0 ? (
           <span className="pending">Pending</span>
-        ) : row.noteStatus === 2 ? (
+        ) : row.noteStatus === 1 ? (
           <span className="success">Success</span>
         ) : (
           <span className="failed">Failed</span>
@@ -205,13 +205,13 @@ const Note = () => {
                       onChange={handleChange}
                       value={chooseStatus}
                     >
-                      <option disabled value="0" selected>
+                      <option disabled value="-1" selected>
                         Select Follow Status
                       </option>
                       <option value="">Select All</option>
-                      <option value="1">Pending</option>
-                      <option value="2">Success</option>
-                      <option value="3">Failed</option>
+                      <option value="0">Pending</option>
+                      <option value="1">Success</option>
+                      <option value="2">Failed</option>
                     </select>
                   </div>
                   <div className="filter-option">

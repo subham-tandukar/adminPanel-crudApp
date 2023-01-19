@@ -1,17 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
-import NoteContext from "./noteContext";
+import UserContext from "./userContext";
 import $ from "jquery";
 import { toast } from "react-toastify";
 import "../../../../node_modules/react-toastify/dist/ReactToastify.css";
-import { Fetchdata } from "../../hooks/getData";
 import NavbarContext from "../navbar-context";
+import { Fetchdata } from "../../hooks/getData";
 
-function NoteState(props) {
+function UserState(props) {
   const { baseURL } = useContext(NavbarContext);
+
   const initialValue = {
-    title: "",
-    description: "",
-    noteStatus: "",
+    name: "",
+    email: "",
+    password: "",
+    roleName: "",
   };
 
   const [inputData, setInputData] = useState(initialValue);
@@ -21,29 +23,34 @@ function NoteState(props) {
   const [isSubmit, setIsSubmit] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const [noteData, setNoteData] = useState([]);
-  const [originalList, setOriginalList] = useState(null);
-  console.log("get Note data", noteData);
+  const [typeFile, setTypeFile] = useState("");
+  const [image, setImage] = useState("");
 
-  // add note-----------------------------
-  const addNote = () => {
+  const [userData, setUserData] = useState([]);
+  const [originalList, setOriginalList] = useState(null);
+  console.log("get user data", userData);
+
+  // add user-----------------------------------
+  const addUser = () => {
     const dataForm = {
-      title: inputData.title,
-      description: inputData.description,
-      noteStatus: inputData.noteStatus,
-      FetchURL: `${baseURL}/addNote`,
+      name: inputData.name,
+      email: inputData.email,
+      password: inputData.password,
+      roleName: inputData.roleName,
+      // image: image,
+      FetchURL: `${baseURL}/addUser`,
       Type: "POST",
     };
     console.log(dataForm);
     Fetchdata(dataForm).then(function (result) {
       console.log("result", result);
       if (result.StatusCode === 200) {
-        toast.success("Note added sucessfully", {
+        toast.success("User added sucessfully", {
           theme: "light",
         });
         setReload(!reload);
-        $(".add-note-bg").fadeOut(300);
-        $(".add-note").slideUp(500);
+        $(".add-user-bg").fadeOut(300);
+        $(".add-user").slideUp(500);
       } else {
         toast.error(result.Message, {
           theme: "light",
@@ -52,55 +59,54 @@ function NoteState(props) {
     });
   };
 
-  // get Note---------------------------------
-  const [chooseStatus, setChooseStatus] = useState("");
-
+  // get user-----------------------------------
   useEffect(() => {
-    getNoteData();
-  }, [reload, chooseStatus]);
+    getUserData();
+  }, [reload]);
 
-  const getNoteData = () => {
+  const getUserData = () => {
     const dataForm = {
-      FetchURL: `${baseURL}/getNoteData?noteStatus=${chooseStatus}`,
+      FetchURL: `${baseURL}/getUserData`,
       Type: "GET",
     };
 
     Fetchdata(dataForm).then(function (result) {
       console.log("result", result);
       if (result.StatusCode === 200) {
-        const postResult = result.NoteData ? result.NoteData : "";
-        setNoteData(postResult);
+        const postResult = result.UserData ? result.UserData : "";
+        setUserData(postResult);
         setOriginalList(postResult);
         setLoading(false);
       } else {
-        setNoteData([]);
+        setUserData([]);
         setLoading(false);
       }
     });
   };
 
-  // view Note---------------------------------
+  // view user-----------------------------------
+
   const [viewID, setViewId] = useState("");
   const [view, setView] = useState([]);
 
   const handleView = (data) => {
     setViewId(data._id);
-    $(".view-note-bg").fadeIn(300);
-    $(".view-note").slideDown(500);
+    $(".view-user-bg").fadeIn(300);
+    $(".view-user").slideDown(500);
   };
 
   const id = viewID;
 
   const viewData = () => {
     const dataForm = {
-      FetchURL: `${baseURL}/getNote/${id}`,
+      FetchURL: `${baseURL}/getUser/${id}`,
       Type: "GET",
     };
 
     Fetchdata(dataForm).then(function (result) {
       console.log("result", result);
       if (result.StatusCode === 200) {
-        const postResult = result.NoteList[0] ? result.NoteList[0] : "";
+        const postResult = result.UserList[0] ? result.UserList[0] : "";
         setView(postResult);
         setLoading(false);
       } else {
@@ -114,41 +120,45 @@ function NoteState(props) {
     viewData();
   }, [id, reload]);
 
-  // edit Note----------------------------------------
+  // edit user-----------------------------------
   const [perEditSubmit, setPerEditSubmit] = useState(false);
   const [perID, setPerId] = useState(null);
+  const [userEdit, setUserEdit] = useState("");
 
   const handleEdit = (data) => {
     setPerId(data._id);
-    $(".edit-note-bg").fadeIn(300);
-    $(".edit-note").slideDown(500);
+    setUserEdit(data.name);
+    $(".edit-user-bg").fadeIn(300);
+    $(".edit-user").slideDown(500);
     setInputData({
-      title: data.title,
-      description: data.description,
-      noteStatus: data.noteStatus,
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      roleName: data.roleName,
     });
   };
 
   const editid = perID;
 
-  const editNote = () => {
+  const editUser = () => {
     const dataForm = {
-      title: inputData.title,
-      description: inputData.description,
-      noteStatus: inputData.noteStatus,
-      FetchURL: `${baseURL}/updateNote/${editid}`,
+      name: inputData.name,
+      email: inputData.email,
+      password: inputData.password,
+      roleName: inputData.roleName,
+      FetchURL: `${baseURL}/updateUser/${editid}`,
       Type: "PATCH",
     };
 
     Fetchdata(dataForm).then(function (result) {
       console.log("result", result);
       if (result.StatusCode === 200) {
-        toast.success("Note updated sucessfully", {
+        toast.success(`User ${userEdit} updated sucessfully`, {
           theme: "light",
         });
         setReload(!reload);
-        $(".edit-note-bg").fadeOut(300);
-        $(".edit-note").slideUp(500);
+        $(".edit-user-bg").fadeOut(300);
+        $(".edit-user").slideUp(500);
       } else {
         toast.error(result.Message, {
           theme: "light",
@@ -157,33 +167,35 @@ function NoteState(props) {
     });
   };
 
-  // delete note-----------------------------------
+  // delete user-----------------------------------
   const [deleteID, setDeleteId] = useState(null);
+  const [userDelete, setUserDelete] = useState("");
 
   const handleDelete = (data) => {
     setDeleteId(data._id);
-    $(".delete-note-bg").fadeIn(300);
-    $(".delete-note").slideDown(500);
+    setUserDelete(data.name);
+    $(".delete-user-bg").fadeIn(300);
+    $(".delete-user").slideDown(500);
   };
 
   const deleteid = deleteID;
 
-  const deleteNote = () => {
+  const deleteUser = () => {
     const dataForm = {
-      FetchURL: `${baseURL}/deleteNote/${deleteid}`,
+      FetchURL: `${baseURL}/deleteUser/${deleteid}`,
       Type: "DELETE",
     };
 
     Fetchdata(dataForm).then(function (result) {
       console.log("result", result);
       if (result.StatusCode === 200) {
-        toast.success("Note deleted sucessfully", {
+        toast.success(`User ${userDelete} deleted sucessfully`, {
           theme: "light",
         });
         setReload(!reload);
-        $(".delete-note-bg").fadeOut(300);
-        $(".delete-note").slideUp(500);
-        getNoteData();
+        $(".delete-user-bg").fadeOut(300);
+        $(".delete-user").slideUp(500);
+        getUserData();
       } else {
         toast.error(result.Message, {
           theme: "light",
@@ -193,7 +205,7 @@ function NoteState(props) {
   };
 
   return (
-    <NoteContext.Provider
+    <UserContext.Provider
       value={{
         inputData,
         setInputData,
@@ -202,9 +214,9 @@ function NoteState(props) {
         setFormError,
         isSubmit,
         setIsSubmit,
-        addNote,
-        noteData,
-        setNoteData,
+        addUser,
+        userData,
+        setUserData,
         setReload,
         reload,
         perEditSubmit,
@@ -213,18 +225,21 @@ function NoteState(props) {
         handleView,
         view,
         loading,
-        editNote,
+        editUser,
         handleDelete,
-        deleteNote,
-        chooseStatus,
-        setChooseStatus,
+        deleteUser,
         originalList,
         setOriginalList,
+
+        typeFile,
+        setTypeFile,
+        image,
+        setImage,
       }}
     >
       {props.children}
-    </NoteContext.Provider>
+    </UserContext.Provider>
   );
 }
 
-export default NoteState;
+export default UserState;

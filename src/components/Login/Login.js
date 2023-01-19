@@ -3,19 +3,15 @@ import logo from "../../img/logo.png";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/auth-context";
-import AssignUserContext from "../context/assign user context folder/assignUserContext";
+import NavbarContext from "../context/navbar-context";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
-  // const { baseURL } = useContext(AssignUserContext);
+  const { baseURL } = useContext(NavbarContext);
   const initialvalue = { email: "", password: "" };
   const [inputData, setInputData] = useState(initialvalue);
   const [formError, setFormError] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-
-  const baseURL = "http://localhost:8003";
-  // const baseURL = "https://web-production-cff8.up.railway.app";
-
   let navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -44,7 +40,7 @@ const Login = () => {
     setIsSubmit(true);
   };
 
-  //   login api
+  //   login api-----------------------------------
 
   const loggedin = async () => {
     const { email, password } = inputData;
